@@ -1,0 +1,93 @@
+{
+  "Navbar": {
+    "home": "Inicio",
+    "about": "Nosotros",
+    "work": "Trabajos",
+    "services": "Servicios",
+    "contact": "Contacto"
+  },
+
+  "Home": {
+    "title-1": "Software",
+    "title-2": "Development",
+    "description": "Desarrollamos soluciones web, móviles y de escritorio diseñadas para escalar tu marca, optimizar tus procesos y ofrecer la mejor experiencia a tus usuarios.",
+    "contact-button": "Contáctanos"
+  },
+
+  "About": {
+    "about-title": "Acerca de Nosotros",
+    "about-description": "Somos un equipo de desarrolladores enfocados en crear soluciones digitales a medida. Transformamos ideas complejas en software rápido, intuitivo y escalable, combinando arquitectura de código limpia con un diseño centrado en el usuario. Nos apasiona la tecnología y nos aseguramos de que cada proyecto no solo cumpla, sino que supere tus expectativas de negocio.",
+    "warranties-title": "Te Garantizamos",
+    "reliability-description": "Código estructurado y seguro desde la primera línea. Desarrollamos sistemas estables y protegidos contra vulnerabilidades para que tu negocio funcione sin interrupciones.",
+    "time-description": "Planificación clara y cronogramas reales. Cumplimos cada hito y fecha de entrega acordada sin sorpresas ni retrasos innecesarios.",
+    "pen-description": "No te dejamos solo tras la entrega. Te acompañamos durante el despliegue y ofrecemos soporte técnico posterior para asegurar que todo opere al 100%.",
+    "performance-description": "Velocidad de carga ultrarrápida y rendimiento fluido. Optimizamos cada componente para ofrecer la mejor experiencia de usuario en cualquier dispositivo."
+  },
+
+  "Works": {
+    "works-title": "Trabajos recientes",
+    "image-subtitle-1": "Plataforma SaaS & Conversión de Medios",
+    "image-description-1": "Solución web fullstack diseñada para la transformación rápida e intuitiva de archivos multimedia en múltiples formatos (PNG, JPG, WebP, MP4, MP3...). La plataforma optimiza la carga y procesamiento de medios en la nube, ofreciendo una experiencia fluida con soporte para temas claro/oscuro (next-themes) e internacionalización (i18n).",
+    "image-subtitle-2": "UI/UX Design & Catálogo Digital",
+    "image-description-2": "Diseño de interfaz y experiencia de usuario (UI/UX) para el catálogo digital de una panadería artesanal. El proyecto se enfoca en resaltar la calidad visual de los productos mediante una navegación intuitiva, maquetación adaptativa (responsive) y una paleta cromática pensada para impulsar la conversión de clientes desde canales digitales hacia compras directas.",
+    "image-subtitle-3": "",
+    "image-description-3": "Lorem ipsum dolor sit amet consectetur. Ipsum curabitur volutpat nulla neque sem sit mauris. Gravida volutpat cursus nec non donec quam nisl aliquam ac. Molestie pretium eget erat tempor dolor nec habitant arcu sit. Lacus sodales quis varius id nulla morbi sed elit varius.",
+    "image-subtitle-4": "",
+    "image-description-4": "Lorem ipsum dolor sit amet consectetur. Ipsum curabitur volutpat nulla neque sem sit mauris. Gravida volutpat cursus nec non donec quam nisl aliquam ac. Molestie pretium eget erat tempor dolor nec habitant arcu sit. Lacus sodales quis varius id nulla morbi sed elit varius.",
+    "image-subtitle-5": "",
+    "image-description-5": "Lorem ipsum dolor sit amet consectetur. Ipsum curabitur volutpat nulla neque sem sit mauris. Gravida volutpat cursus nec non donec quam nisl aliquam ac. Molestie pretium eget erat tempor dolor nec habitant arcu sit. Lacus sodales quis varius id nulla morbi sed elit varius.",
+    "visit-button": "Visitar"
+  },
+
+  "Services": {
+    "services-title": "Servicios",
+    "mobile-card-title": "Aplicaciones Móviles",
+    "mobile-card-description": "Lleva tu negocio al bolsillo de tus clientes. Diseñamos e implementamos aplicaciones nativas y multiplataforma ágiles, intuitivas y optimizadas para iOS y Android.",
+    "mobile-card-char-1": "Experiencia de usuario (UX/UI) fluida y moderna.",
+    "mobile-card-char-2": "Integración con APIs, pagos y notificaciones push.",
+    "mobile-card-char-3": "Alto rendimiento y funcionamiento offline u online.",
+    "desktop-card-title": "Aplicaciones de Escritorio",
+    "desktop-card-description": "Herramientas robustas y de alto rendimiento adaptadas a la operativa de tu empresa. Potencia la gestión interna, el control de datos y la productividad de tu equipo.",
+    "desktop-card-char-1": "Sistemas a la medida para control operativo y gestión.",
+    "desktop-card-char-2": "Máxima seguridad y procesamiento de datos local/nube.",
+    "desktop-card-char-3": "Mantenimiento, soporte técnico y actualizaciones continuas.",
+    "web-card-title": "Aplicaciones Web",
+    "web-card-description": "Plataformas y sitios web rápidos, escalables y adaptables a cualquier dispositivo. Convertimos visitantes en clientes con arquitecturas modernas y diseño de alto impacto.",
+    "web-card-char-1": "Diseño responsive y optimizado para motores de búsqueda (SEO).",
+    "web-card-char-2": "Panel de administración intuitivo y personalizable.",
+    "web-card-char-3": "Código limpio, seguro y tiempos de carga ultra rápidos.",
+    "card-button": "Consultar"
+  },
+
+  "Contact": {
+    "contact-title": "Contáctanos",
+    "form-title": "Envíanos un mensaje",
+    "name-label": "Nombre Completo",
+    "name-placeholder": "Tu nombre",
+    "email-label": "Email",
+    "email-placeholder": "Tu email",
+    "subject-label": "Asunto",
+    "subject-placeholder": "El asunto de tu mensaje",
+    "message-label": "Mensaje",
+    "message-placeholder": "Tu mensaje",
+    "submit-button": "Enviar Mensaje",
+    "submit-button-loading": "Enviando...",
+    "contact-info-title": "Información de Contacto",
+    "direct-contact-title": "Contacto Directo",
+    "whatsapp-label": "Háblanos por Whatsapp",
+    "whatsapp-button": "Contactar por Whatsapp",
+    "successfully-send-warning": "¡Gracias {nombre}! Tu mensaje ha sido enviado exitosamente.",
+    "error-send-warning": "Error al enviar el mensaje: {error}",
+    "unexpected-error-warning": "Ocurrió un error inesperado al intentar enviar el mensaje.",
+    "phone-label" : "Teléfono"
+  },
+
+  "Footer": {
+    "description": "Desarrollo de software a medida, diseño moderno y soporte continuo para hacer crecer tu proyecto.",
+    "contact-info-title": "Información de Contacto",
+    "follow-us-label": "Síguenos",
+    "rights-reserved-label" : "2026 NexoPixel X Todos los derechos reservados.",
+    "visit-button": "Visitar"
+  }
+}
+

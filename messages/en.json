@@ -1,0 +1,91 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "about": "About Us",
+    "work": "Our Work",
+    "services": "Services",
+    "contact": "Contact"
+  },
+
+  "Home": {
+    "title-1": "Software",
+    "title-2": "Development",
+    "description": "We develop web, mobile, and desktop solutions designed to scale your brand, optimize your processes, and deliver the best experience to your users.",
+    "contact-button": "Contact Us"
+  },
+
+  "About": {
+    "about-title": "About us",
+    "about-description": "We are a team of developers focused on creating custom digital solutions. We transform complex ideas into fast, intuitive, and scalable software, combining clean code architecture with user-centered design. We are passionate about technology and ensure that every project not only meets but exceeds your business expectations.",
+    "warranties-title": "We guarantee you",
+    "reliability-description": "Structured and secure code from the very first line. We develop stable systems protected against vulnerabilities so your business runs without interruption.",
+    "time-description": "Clear planning and realistic schedules. We meet every milestone and agreed-upon delivery date without surprises or unnecessary delays.",
+    "pen-description": "We don't leave you on your own after delivery. We support you during the rollout and provide ongoing technical support to ensure everything operates at 100% efficiency.",
+    "performance-description": "Lightning-fast loading speeds and smooth performance. We optimize every component to deliver the best user experience on any device."
+  },
+
+  "Works": {
+    "works-title": "Recent work",
+    "image-subtitle-1": "SaaS Platform & Media Conversion",
+    "image-description-1": "A full-stack web solution designed for the rapid and intuitive transformation of multimedia files across multiple formats (PNG, JPG, WebP, MP4, MP3...). The platform optimizes cloud-based media uploading and processing, delivering a seamless experience with support for light/dark themes (next-themes) and internationalization (i18n).",
+    "image-subtitle-2": "UI/UX Design & Digital Catalog",
+    "image-description-2": "UI/UX design for an artisanal bakery's digital catalog. The project focuses on highlighting the visual quality of the products through intuitive navigation, responsive layout, and a color palette designed to drive customer conversion from digital channels to direct purchases.",
+    "image-subtitle-3": "",
+    "image-description-3": "Lorem ipsum dolor sit amet consectetur. Ipsum curabitur volutpat nulla neque sem sit mauris. Gravida volutpat cursus nec non donec quam nisl aliquam ac. Molestie pretium eget erat tempor dolor nec habitant arcu sit. Lacus sodales quis varius id nulla morbi sed elit varius.",
+    "image-subtitle-4": "",
+    "image-description-4": "Lorem ipsum dolor sit amet consectetur. Ipsum curabitur volutpat nulla neque sem sit mauris. Gravida volutpat cursus nec non donec quam nisl aliquam ac. Molestie pretium eget erat tempor dolor nec habitant arcu sit. Lacus sodales quis varius id nulla morbi sed elit varius.",
+    "image-subtitle-5": "",
+    "image-description-5": "Lorem ipsum dolor sit amet consectetur. Ipsum curabitur volutpat nulla neque sem sit mauris. Gravida volutpat cursus nec non donec quam nisl aliquam ac. Molestie pretium eget erat tempor dolor nec habitant arcu sit. Lacus sodales quis varius id nulla morbi sed elit varius.",
+    "visit-button": "Visit"
+  },
+
+  "Services": {
+    "services-title": "Services",
+    "mobile-card-title": "Mobile Applications",
+    "mobile-card-description": "Put your business in your customers' pockets. We design and implement agile, intuitive, and optimized native and cross-platform applications for iOS and Android.",
+    "mobile-card-char-1": "Seamless and modern user experience (UX/UI).",
+    "mobile-card-char-2": "Integration with APIs, payments, and push notifications.",
+    "mobile-card-char-3": "High performance and offline or online operation.",
+    "desktop-card-title": "Desktop Applications",
+    "desktop-card-description": "Robust, high-performance tools tailored to your company's operations. Boost internal management, data control, and your team's productivity.",
+    "desktop-card-char-1": "Custom systems for operational control and management.",
+    "desktop-card-char-2": "Maximum security and local/cloud data processing.",
+    "desktop-card-char-3": "Maintenance, technical support, and continuous updates.",
+    "web-card-title": "Web Applications",
+    "web-card-description": "Fast, scalable platforms and websites that adapt to any device. We turn visitors into customers using modern architectures and high-impact design.",
+    "web-card-char-1": "Responsive design optimized for search engines (SEO).",
+    "web-card-char-2": "Intuitive and customizable administration panel.",
+    "web-card-char-3": "Clean, secure code and ultra-fast load times.",
+    "card-button": "Consult"
+  },
+
+  "Contact": {
+    "contact-title": "Contact Us",
+    "form-title": "Send us a message",
+    "name-label": "Full Name",
+    "name-placeholder": "Your name",
+    "email-label": "Email",
+    "email-placeholder": "Your email",
+    "subject-label": "Subject",
+    "subject-placeholder": "The subject of your message",
+    "message-label": "Message",
+    "message-placeholder": "Your message",
+    "submit-button": "Send Message",
+    "submit-button-loading": "Sending...",
+    "contact-info-title": "Contact Information",
+    "direct-contact-title": "Direct Contact",
+    "whatsapp-label": "Chat with us on Whatsapp",
+    "whatsapp-button": "Contact via Whatsapp",
+    "successfully-send-warning": "Thank you {nombre}! Your message has been sent successfully.",
+    "error-send-warning": "Error sending message: {error}",
+    "unexpected-error-warning": "An unexpected error occurred while trying to send the message.",
+    "phone-label" : "Phone"
+  },
+
+  "Footer": {
+    "description": "Custom software development, modern design, and ongoing support to grow your project.",
+    "contact-info-title": "Contact Information",
+    "follow-us-label": "Follow Us",
+    "rights-reserved-label" : "2026 NexoPixel X All rights reserved."
+  }
+}
