@@ -17,21 +17,34 @@ export default function Header(){
   const tNav = useTranslations("Navbar");
 
   return(
-    <header className="fixed z-50 top-0 left-1/2 -translate-x-1/2 pt-5 px-4 w-full max-w-[1400px] mx-auto backdrop-blur-sm">
-      <div className="flex items-center justify-between relative z-50">
+    <header className="fixed z-50 top-0 left-1/2 -translate-x-1/2 pt-5 px-4 w-full max-w-[1400px] mx-auto backdrop-blur-sm bg-[#1E1E1E]">
+      <div className="flex flex-col items-center relative z-50">
         
-        <h1 className="text-white">
-          Titulo Panadería
-        </h1>
+        <h1 className="text-[#F8F4E3] text-3xl mb-4"> Titulo Panadería </h1>
 
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#ac19e5] to-transparent opacity-70" />
+        <div className="w-full h-[3px] bg-[#F8F4E3] opacity-70 mb-4" />
         
-        <nav className="hidden [@media(min-width:900)]:flex gap-8 text-sm font-normal font-body text-gray-300">
-          <Link href="#Inicio" aria-label="Inicio" className="hover:text-white transition-colors">{tNav('home')}</Link>
-          <Link href="#Nosotros" aria-label="Nosotros" className="hover:text-white transition-colors">{tNav('about')}</Link>
-          <Link href="#Ofertas" aria-label="Ofertas" className="hover:text-white transition-colors">{tNav('work')}</Link>
-          <Link href="#Sucursales" aria-label="Sucursales" className="hover:text-white transition-colors">{tNav('services')}</Link>
-          <Link href="#Contacto" aria-label="Contacto" className="hover:text-white transition-colors">{tNav('contact')}</Link>
+        <nav className="hidden [@media(min-width:900)]:flex gap-8 text-sm font-normal font-body text-[#F8F4E3] mb-4">
+          <Link href="#Inicio" aria-label="Inicio" className="group relative hover:text-[#CDA592] transition-colors">
+            {tNav('home')}
+            <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
+          <Link href="#Nosotros" aria-label="Nosotros" className="group relative hover:text-[#CDA592] transition-colors">
+            {tNav('about')}
+            <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
+          <Link href="#Ofertas" aria-label="Ofertas" className="group relative hover:text-[#CDA592] transition-colors">
+            {tNav('work')}
+            <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
+          <Link href="#Sucursales" aria-label="Sucursales" className="group relative hover:text-[#CDA592] transition-colors">
+            {tNav('services')}
+            <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
+          <Link href="#Contacto" aria-label="Contacto" className="group relative hover:text-[#CDA592] transition-colors">
+            {tNav('contact')}
+            <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
         </nav>
 
         {/* Botón con z-index relativo superior para garantizar el tap en móvil */}
@@ -43,10 +56,6 @@ export default function Header(){
           <BarsIcon className="size-8" />
         </button>
                   
-      </div>
-
-      <div className="relative z-20 w-full max-w-[1400px] mx-auto px-8 md:px-16 mt-5">
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#ac19e5] to-transparent opacity-70" />
       </div>
 
       {/* Overlay arreglado con z-40 (por detrás del botón) */}
