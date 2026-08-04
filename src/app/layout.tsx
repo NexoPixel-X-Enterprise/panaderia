@@ -3,7 +3,7 @@ import { Space_Grotesk, Manrope } from 'next/font/google';
 import {NextIntlClientProvider} from 'next-intl';
 import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
-import "../../styles/globals.css";
+import "../styles/globals.css";
 
 const spaceGrotesk = Space_Grotesk({ // Titulos
   subsets: ['latin'],
