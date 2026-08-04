@@ -19,20 +19,51 @@ export default function Header(){
   return(
     <header className="fixed z-50 top-0 left-1/2 -translate-x-1/2 pt-5 px-4 w-full max-w-[1400px] mx-auto backdrop-blur-sm">
       <div className="flex items-center justify-between relative z-50">
-        
-        <h1 className="text-white">
-          Titulo Panadería
-        </h1>
-
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#ac19e5] to-transparent opacity-70" />
+                  
+        <div className="flex flex-col gap-y-3 sm:flex-row sm:gap-6 items-start sm:items-center text-sm text-[#d5d5d5aa] font-light font-body">
+          <div className="flex items-center gap-2">
+            <WppIcon className='w-8 text-[#D5D5D5] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]' />
+            <a 
+              href="https://wa.me/584167428059" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label="phone number"
+              className="text-[#d5d5d5] hover:text-[#0055FF] transition-colors ml-1">
+              0416-7428059
+            </a>
+          </div>
+          <div className="flex items-center gap-2">
+            <BashIcon className='w-8 text-[#D5D5D5] drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]' />
+            <a 
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=nexopixelx@gmail.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label="email"
+              className="text-[#d5d5d5] hover:text-[#0055FF] transition-colors ml-1"
+            >
+              nexopixelx@gmail.com
+            </a>
+          </div>
+        </div>
         
         <nav className="hidden [@media(min-width:900)]:flex gap-8 text-sm font-normal font-body text-gray-300">
-          <Link href="#Inicio" aria-label="Inicio" className="hover:text-white transition-colors">{tNav('home')}</Link>
-          <Link href="#Nosotros" aria-label="Nosotros" className="hover:text-white transition-colors">{tNav('about')}</Link>
-          <Link href="#Ofertas" aria-label="Ofertas" className="hover:text-white transition-colors">{tNav('work')}</Link>
-          <Link href="#Sucursales" aria-label="Sucursales" className="hover:text-white transition-colors">{tNav('services')}</Link>
-          <Link href="#Contacto" aria-label="Contacto" className="hover:text-white transition-colors">{tNav('contact')}</Link>
+          <Link href="#inicio" aria-label="inicio" className="hover:text-white transition-colors">{tNav('home')}</Link>
+          <Link href="#acerca" aria-label="acerca" className="hover:text-white transition-colors">{tNav('about')}</Link>
+          <Link href="#trabajos" aria-label="trabajos" className="hover:text-white transition-colors">{tNav('work')}</Link>
+          <Link href="#servicios" aria-label="servicios" className="hover:text-white transition-colors">{tNav('services')}</Link>
+          <Link href="#contacto" aria-label="contacto" className="hover:text-white transition-colors">{tNav('contact')}</Link>
         </nav>
+        
+        <div className="hidden [@media(min-width:900px)]:flex relative items-center justify-center gap-4">
+          <LanguageToggle />
+          <Image 
+            src={"/logo-icon.webp"}
+            alt='logo nexo pixel'
+            width={56}
+            height={50}
+            priority
+          />
+        </div>
 
         {/* Botón con z-index relativo superior para garantizar el tap en móvil */}
         <button
@@ -80,24 +111,33 @@ export default function Header(){
           </div>
 
           <nav className="flex flex-col gap-6 text-lg font-medium font-body text-[#d5d5d5]">
-            <Link href="#Inicio" aria-label="Inicio" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
+            <Link href="#inicio" aria-label="inicio" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
               {tNav('home')}
             </Link>
-            <Link href="#Nosotros" aria-label="Nosotros" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
+            <Link href="#acerca" aria-label="acerca" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
               {tNav('about')}
             </Link>
-            <Link href="#Ofertas" aria-label="Ofertas" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
+            <Link href="#trabajos" aria-label="trabajos" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
               {tNav('work')}
             </Link>
-            <Link href="#Sucursales" aria-label="Sucursales" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
+            <Link href="#servicios" aria-label="servicios" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
               {tNav('services')}
             </Link>
-            <Link href="#Contacto" aria-label="Contacto" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
+            <Link href="#contacto" aria-label="contacto" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
               {tNav('contact')}
             </Link>
           </nav>
         </div>
 
+        <div className="pt-6 border-t border-gray-800 flex items-center justify-center">
+          <Image
+            src="/logo-icon.webp"
+            alt="logo nexo pixel"
+            width={56}
+            height={50}
+            priority
+          />
+        </div>
       </aside>
     </header>
   );
