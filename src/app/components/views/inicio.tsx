@@ -1,10 +1,8 @@
-import { useTranslations } from 'next-intl';
 import { WppIcon } from '../ui/Icons';
 import { motion } from "framer-motion";
 import Image from 'next/image';
 
 export default function Inicio() {
-  const tHero = useTranslations('Home');
 
   return (
     <section id='inicio' className="text-[#d5d5d5] relative min-h-screen font-body overflow-hidden flex flex-col pb-20 pt-32 gap-10">
@@ -32,10 +30,10 @@ export default function Inicio() {
             className="text-6xl xl:text-7xl xl:text-[85px] tracking-tight flex flex-col leading-[1.05] font-heading select-none"
           >
             <span className="text-[#8914B7] drop-shadow-md text-shadow-[0_0_8px_rgba(137,20,183,0.8)]">
-              {tHero('title-1')}
+              Transformamos tu visión
             </span>
             <span className="text-transparent drop-shadow-md text-shadow-[0_0_50px_rgba(0,85,255,0.5)]" style={{ WebkitTextStroke: '2px #0055FF' }}>
-              {tHero('title-2')}
+              en realidad digital
             </span>
           </motion.h1>
           
@@ -46,7 +44,7 @@ export default function Inicio() {
             transition={{ duration: 1, ease: "linear" }}
             className="text-base lg:text-lg text-[#d5d5d5aa] max-w-md font-light leading-relaxed font-heading"
           >
-            {tHero('description')}
+            Descripción
           </motion.p>
         
             <motion.a
@@ -61,7 +59,7 @@ export default function Inicio() {
               className="group relative flex items-center justify-center gap-3 w-47 my-12 px-6 py-2.5 pr-12 hover:pr-6 border-2 border-[#0055FF] rounded-md cursor-pointer hover:bg-[#0055FF] transition-all duration-500 font-medium shadow-[0_0_5px_rgba(0,85,255)] font-heading"
             >
               <span className="transition-all duration-500 ease-in-out">
-                {tHero('contact-button')}
+                Contactanos por WhatsApp
               </span>
               <span className='absolute right-4 transition-all duration-500 ease-in-out group-hover:opacity-0  group-hover:scale-0  group-hover:w-0  group-hover:overflow-hidden'>
                 <WppIcon className='text-[#0055FF] drop-shadow-[0_0_8px_rgba(0,85,255,0.8)]'></WppIcon>

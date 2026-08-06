@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Manrope } from 'next/font/google';
-import {NextIntlClientProvider} from 'next-intl';
 import Header from "./components/layout/header";
 import Footer from "./components/layout/footer";
 import "../styles/globals.css";
@@ -50,16 +49,14 @@ params
 
   return (
     <html
-      lang={locale}
+      lang="es"
       className={`${spaceGrotesk.variable} ${manrope.variable} h-full antialiased scroll-smooth`}
       data-scroll-behavior="smooth"
     >
-      <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
           <Header></Header>
           {children}
           <Footer></Footer>
-          </NextIntlClientProvider>
       </body>
     </html>
   );

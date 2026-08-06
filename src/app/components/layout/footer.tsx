@@ -1,9 +1,6 @@
-import { useTranslations } from "next-intl"
 import { MailIcon, PhoneIcon, InstagramIcon, FacebookIcon, GithubIcon } from "../ui/Icons"
 
 export default function Footer(){
-
-    const t = useTranslations("Footer")
 
     return (
       <footer className="pt-12 pb-5 w-full bg-[#070913] bg-[radial-gradient(ellipse_at_center,_#1B0425_0%,_#050A15_50%)] relative overflow-hidden">
@@ -14,13 +11,13 @@ export default function Footer(){
                 NexoPixel X
               </div>
               <p className="leading-relaxed max-w-xs font-body text-[#d5d5d5aa]">
-                {t("description")}
+                descripción
               </p>
             </div>
 
             <div className="space-y-4 text-[#d5d5d5]/70">
               <h5 className="text-white font-bold text-xl font-heading tracking-wider text-[#d5d5d5]">
-                {t('contact-info-title')}
+                Contacto
               </h5>
               <div className="flex items-center gap-2.5">
                 <MailIcon className="w-5 drop-shadow-[0_0_3px_rgba(213,213,213,0.8)]"></MailIcon>
@@ -50,7 +47,7 @@ export default function Footer(){
 
             <div className="space-y-4">
               <h5 className="text-white font-bold text-xl font-heading tracking-wider text-[#d5d5d5]">
-                {t('follow-us-label')}
+                Siguenos
               </h5>
               <div className="flex gap-5 text-[#d5d5d5]/70">
                 <a 
@@ -85,7 +82,7 @@ export default function Footer(){
           <div className="w-full h-[1px] bg-[#2B71FF] drop-shadow-[0_0_3px_rgb(43,113,255)] my-6"></div>
 
           <div className="py-6 text-center font-body text-xs text-[#d5d5d5dd]">
-            © {t('rights-reserved-label')}
+            © Derechos reservados
           </div>
         </div>
       </footer>

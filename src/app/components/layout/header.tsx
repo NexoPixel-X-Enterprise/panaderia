@@ -1,9 +1,7 @@
 'use client'
 
-import { useTranslations } from "next-intl";
 import { WppIcon, BashIcon, BarsIcon, XMarkIcon} from "../ui/Icons";
 import { useState } from "react";
-import LanguageToggle from "../ui/languageToggle";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,8 +11,6 @@ export default function Header(){
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
-
-  const tNav = useTranslations("Navbar");
 
   return(
     <header className="fixed z-50 top-0 left-1/2 -translate-x-1/2 pt-5 px-4 w-full max-w-[1400px] mx-auto backdrop-blur-sm bg-[#1E1E1E]">
@@ -26,23 +22,23 @@ export default function Header(){
         
         <nav className="hidden [@media(min-width:900)]:flex gap-8 text-sm font-normal font-body text-[#F8F4E3] mb-4">
           <Link href="#Inicio" aria-label="Inicio" className="group relative hover:text-[#CDA592] transition-colors">
-            {tNav('home')}
+            Inicio
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
           <Link href="#Nosotros" aria-label="Nosotros" className="group relative hover:text-[#CDA592] transition-colors">
-            {tNav('about')}
+            Nosotros
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
           <Link href="#Ofertas" aria-label="Ofertas" className="group relative hover:text-[#CDA592] transition-colors">
-            {tNav('work')}
+            Ofertas
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
           <Link href="#Sucursales" aria-label="Sucursales" className="group relative hover:text-[#CDA592] transition-colors">
-            {tNav('services')}
+            Sucursales
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
           <Link href="#Contacto" aria-label="Contacto" className="group relative hover:text-[#CDA592] transition-colors">
-            {tNav('contact')}
+            Contacto
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
         </nav>
@@ -77,7 +73,6 @@ export default function Header(){
           <div className="flex items-center justify-between border-b border-gray-800 pb-4">
             <div className="flex items-center gap-4">
               <span className="text-xs text-[#d5d5d5aa]">Idioma / Language:</span>
-              <LanguageToggle />
             </div>
             <button
               onClick={closeMenu}
@@ -90,19 +85,19 @@ export default function Header(){
 
           <nav className="flex flex-col gap-6 text-lg font-medium font-body text-[#d5d5d5]">
             <Link href="#Inicio" aria-label="Inicio" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
-              {tNav('home')}
+              Inicio
             </Link>
             <Link href="#Nosotros" aria-label="Nosotros" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
-              {tNav('about')}
+              Nosotros
             </Link>
             <Link href="#Ofertas" aria-label="Ofertas" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
-              {tNav('work')}
+              Ofertas
             </Link>
             <Link href="#Sucursales" aria-label="Sucursales" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
-              {tNav('services')}
+              Sucursales
             </Link>
             <Link href="#Contacto" aria-label="Contacto" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
-              {tNav('contact')}
+              Contacto
             </Link>
           </nav>
         </div>
