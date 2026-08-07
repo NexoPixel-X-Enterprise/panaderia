@@ -1,7 +1,6 @@
 {
-  "name": "nexo-pixel",
+  "name": "panaderia",
   "version": "0.1.0",
-  "license": "UNLICENSED",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,20 +9,20 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "framer-motion": "^12.42.2",
-    "next": "16.2.10",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "resend": "^6.18.0"
+    "@heroicons/react": "^2.2.0",
+    "motion": "^13.0.0",
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
-    "@types/node": "^20.19.43",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "eslint": "^9.39.5",
-    "eslint-config-next": "16.2.10",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^5.9.3"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+'use client'
+
+import { motion } from 'motion/react';
 import Image from 'next/image';
 
 export default function Inicio() {
@@ -26,7 +28,7 @@ export default function Inicio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-2xl md:text-[32px] font-serif text-[#F2E6D8] leading-[1.4] mb-6 drop-shadow-md"
+          className="text-2xl md:text-[32px] font-title text-[#F2E6D8] leading-[1.4] mb-6 drop-shadow-md"
         >
           Con la misión de llegar a sus corazones<br className="hidden md:block"/>
           con nuestros panes, tortas, dulces y<br className="hidden md:block"/>
@@ -47,7 +49,7 @@ export default function Inicio() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.8, ease: "linear" }}
-          className="text-lg md:text-[22px] text-[#F2E6D8] font-serif drop-shadow-md"
+          className="text-lg md:text-[22px] text-[#F2E6D8] font-title drop-shadow-md"
         >
           Todo hecho con el mayor cariño del mundo
         </motion.p>

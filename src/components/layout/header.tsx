@@ -1,8 +1,7 @@
 'use client'
 
-import { WppIcon, BashIcon, BarsIcon, XMarkIcon} from "../ui/Icons";
+import { XMarkIcon, Bars3Icon } from "@heroicons/react/16/solid";
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Header(){
@@ -20,24 +19,24 @@ export default function Header(){
 
         <div className="w-full h-[3px] bg-[#F8F4E3] opacity-70 mb-4" />
         
-        <nav className="hidden [@media(min-width:900)]:flex gap-8 text-sm font-normal font-body text-[#F8F4E3] mb-4">
-          <Link href="#Inicio" aria-label="Inicio" className="group relative hover:text-[#CDA592] transition-colors">
+        <nav className="hidden [@media(min-width:900)]:flex gap-8 text-sm font-normal font-title text-[#F8F4E3] mb-4">
+          <Link href="#Inicio" className="group relative hover:text-[#CDA592] transition-colors">
             Inicio
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
-          <Link href="#Nosotros" aria-label="Nosotros" className="group relative hover:text-[#CDA592] transition-colors">
+          <Link href="#Nosotros" className="group relative hover:text-[#CDA592] transition-colors">
             Nosotros
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
-          <Link href="#Ofertas" aria-label="Ofertas" className="group relative hover:text-[#CDA592] transition-colors">
+          <Link href="#Ofertas" className="group relative hover:text-[#CDA592] transition-colors">
             Ofertas
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
-          <Link href="#Sucursales" aria-label="Sucursales" className="group relative hover:text-[#CDA592] transition-colors">
+          <Link href="#Sucursales" className="group relative hover:text-[#CDA592] transition-colors">
             Sucursales
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
-          <Link href="#Contacto" aria-label="Contacto" className="group relative hover:text-[#CDA592] transition-colors">
+          <Link href="#Contacto" className="group relative hover:text-[#CDA592] transition-colors">
             Contacto
             <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
           </Link>
@@ -49,7 +48,7 @@ export default function Header(){
           aria-label="Open menu"
           className="relative z-50 [@media(min-width:900px)]:hidden p-2 cursor-pointer text-[#d5d5d5aa] drop-shadow-[0_0_2px_rgb(213,213,213)] hover:text-[#ac19e5] active:scale-95 transition-transform"
         >
-          <BarsIcon className="size-8" />
+          <Bars3Icon className="size-8" />
         </button>
                   
       </div>
@@ -83,7 +82,7 @@ export default function Header(){
             </button>
           </div>
 
-          <nav className="flex flex-col gap-6 text-lg font-medium font-body text-[#d5d5d5]">
+          <nav className="flex flex-col gap-6 text-lg font-medium font-title text-[#d5d5d5]">
             <Link href="#Inicio" aria-label="Inicio" onClick={closeMenu} className="hover:text-[#ac19e5] transition-colors">
               Inicio
             </Link>
