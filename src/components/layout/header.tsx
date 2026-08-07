@@ -45,7 +45,7 @@ export default function Header(){
         {/* Botón con z-index relativo superior para garantizar el tap en móvil */}
         <button
           onClick={toggleMenu}
-          aria-label="Open menu"
+          aria-label="Abrir menú de navegación"
           className="relative z-50 [@media(min-width:900px)]:hidden p-2 cursor-pointer text-[#d5d5d5aa] drop-shadow-[0_0_2px_rgb(213,213,213)] hover:text-[#ac19e5] active:scale-95 transition-transform"
         >
           <Bars3Icon className="size-8" />
