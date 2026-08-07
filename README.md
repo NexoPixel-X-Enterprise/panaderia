@@ -1,8 +1,16 @@
 Este es un proyecto [Next.js](https://nextjs.org) hecho con [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+Para administrador de paquetes utilizar **únicamente** `pnpm`. **NO USAR NPM**
+
 ## Para comenzar
 
-Primero, corre el servidor de desarrollo:
+Primero, realiza la instalación de las dependencias y librerías del proyecto:
+
+```bash
+    pnpm install
+```
+
+Segundo, corre el servidor de desarrollo:
 
 ```bash
 pnpm run dev
