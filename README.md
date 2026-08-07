@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Este es un proyecto [Next.js](https://nextjs.org) hecho con [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Para comenzar
 
-First, run the development server:
+Primero, corre el servidor de desarrollo:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+El archivo `app/page.tsx` es el encargado de renderizar todo el contenido de la página principal.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+La carpeta `/catalogo` es un ejemplo de como se deben crear las distintas páginas a visitar dentro de la aplicación:
+- El archivo `catalogo/page.tsx` es donde se renderizará todo lo relacionado a la página **Catálogo**.
+- La carpeta `components/catalogo` contendrá los archivos de su página correspondiente (inicio, barra de búsqueda, lista de productos, etc).
+- Para crear una nueva página únicamente se crea una carpeta con el nombre de dicha página dentro de `/app` que contenga un archivo **page.tsx**.
+En el archivo `app/layout.tsx` únicamente se renderizarán el **Header** y el **Footer**.
 
-## Learn More
+La carpeta `components/home` contendrá los elementos **.tsx** de la pagina inicial.
 
-To learn more about Next.js, take a look at the following resources:
+La carpeta `components/layout` únicamente contendrá `header.tsx` y `footer.tsx`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Este proyecto usa [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) para optimizar y cargar automáticamente las fuentes.
+Las fuentes ya estan asignadas, por lo que no hace falta cambiar nada.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Buenas prácticas para SEO
 
-## Deploy on Vercel
+- Siempre utiliza **Image** (`import Image from "next/image"`) a la hora de poner imágenes para la carga optimizada.
+- Englobar contenido de componentes en etiquetas semánticas (`<section></section>`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Buenas prácticas para Accesibilidad
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Usar `aria-label` únicamente en etiquetas `<button></button>`, `<a></a>` y `<Link></Link>` cuando sea realmente necesario:
+    - Si la etiqueta es descriptiva (`<button> Comprar </button>`), no es necesario el uso de `aria-label`.
+    - Si la etiqueta no es descriptiva (`<button> <IconoDeBarras /> </button>`), usar aria label de forma correcta:
+        - `aria-label="Boton menu"` ❌.
+        - `aria-label="Desplegar menu de navegacion"` :white_check_mark:.
+
+## Información extra
+
+Para más información sobre Next.js, échale un vistazo a los siguientes recursos:
+
+- [Documentación de Next.js](https://nextjs.org/docs) - Aprende sobre Next.js y APIs.
+- [Aprende Next.js](https://nextjs.org/learn) - Un tutorial interactivo de Next.js.
