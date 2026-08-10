@@ -12,8 +12,8 @@ export default function Header(){
   const closeMenu = () => setIsOpen(false);
 
   return(
-    <header className="fixed z-50 top-0 left-1/2 -translate-x-1/2 pt-5 px-4 w-full max-w-[1400px] mx-auto backdrop-blur-sm bg-[#1E1E1E]">
-      <div className="flex flex-col items-center relative z-50">
+    <header className="fixed z-50 top-0 left-0 w-full pt-5 backdrop-blur-sm bg-[#1E1E1E]">
+      <div className="flex flex-col items-center relative z-50 max-w-[1400px] mx-auto px-4 w-full">
         
         <h1 className="text-[#F8F4E3] text-3xl mb-4"> Titulo Panadería </h1>
 
