@@ -17,7 +17,7 @@ export default function Header(){
         
         <h1 className="text-[#F8F4E3] text-3xl mb-4"> Titulo Panadería </h1>
 
-        <div className="w-full h-[3px] bg-[#F8F4E3] opacity-70 mb-4" />
+        <div className="w-full h-[3px] bg-[#CDA592] opacity-70 mb-4" />
         
         <nav className="hidden [@media(min-width:900)]:flex gap-8 text-sm font-normal font-title text-[#F8F4E3] mb-4">
           <Link href="#Inicio" className="group relative hover:text-[#CDA592] transition-colors">
