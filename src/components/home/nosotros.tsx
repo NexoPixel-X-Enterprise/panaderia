@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function Nosotros() {
   return (
-    <section id='nosotros' className="py-16 md:py-24">
+    <section id='nosotros' className="py-16 md:py-24 bg-[#F8F4E3] text-[#1E1E1E]">
 
       {/*Titulo y linea arregladas, es decir, fuera del contenedor del contenido*/}
       <div className="w-full px-6 md:px-12 flex flex-col items-center mb-12">
@@ -24,7 +24,7 @@ export default function Nosotros() {
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-          className="w-full h-1 bg-[#F8F4E3] mx-auto mb-12 rounded-full"
+          className="w-full h-1 bg-[#1E1E1E] mx-auto mb-12 rounded-full"
         />
       </div>
 
@@ -82,10 +82,14 @@ export default function Nosotros() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center md:text-left"
+            className="text-center md:text-justify flex flex-col gap-4"
           >
-            <p>Historia de la panadería.</p>
-            <p>Filosofía del negocio.</p>
+            <p>
+              Nuestra historia comenzó con la simple pasión por rescatar las recetas tradicionales y el verdadero sabor del pan horneado con paciencia. Desde nuestros primeros días, nos hemos dedicado a seleccionar cuidadosamente cada ingrediente, amasando a mano y respetando los tiempos de fermentación natural para llevar a tu mesa productos frescos y de calidad inigualable.
+            </p>
+            <p>
+              Creemos firmemente que una panadería es más que un lugar para comprar alimentos; es el corazón de la ciudad y un punto de encuentro para compartir. Nuestra filosofía se basa en el amor por el oficio, la atención al detalle y el compromiso de ofrecerte no solo un pan delicioso, sino una experiencia cálida que te haga sentir siempre en casa.
+            </p>
           </motion.div>
 
         </div>
