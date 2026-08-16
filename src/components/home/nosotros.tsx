@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function Nosotros() {
   return (
-    <section id='nosotros' className="py-16 md:py-24 bg-[#F8F4E3]">
+    <section id='nosotros' className="py-16 md:py-24">
       <div className="container mx-auto px-6 max-w-6xl">
         
         <motion.h2 
@@ -13,7 +13,7 @@ export default function Nosotros() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-3xl md:text-4xl font-title text-center text-[#402E32] mb-4"
+          className="text-center"
         >
           Nosotros
         </motion.h2>
@@ -36,7 +36,7 @@ export default function Nosotros() {
           >
             <Image
               src="/Nosotros.png"
-              alt="El equipo de la panadería trabajando con pasión"
+              alt=""
               fill={true}
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -50,12 +50,8 @@ export default function Nosotros() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center md:text-left"
           >
-            <p className="text-base text-gray-700 leading-relaxed mb-4">
-              Historia de la panadería.
-            </p>
-            <p className="text-base text-gray-700 leading-relaxed">
-              Filosofía del negocio.
-            </p>
+            <p>Historia de la panadería.</p>
+            <p>Filosofía del negocio.</p>
           </motion.div>
 
         </div>
