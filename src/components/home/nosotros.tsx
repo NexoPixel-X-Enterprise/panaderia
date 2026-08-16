@@ -9,7 +9,8 @@ export default function Nosotros() {
 
       {/*Titulo y linea arregladas, es decir, fuera del contenedor del contenido*/}
       <div className="w-full px-6 md:px-12 flex flex-col items-center mb-12">
-        <motion.h2 
+        <motion.h2
+          aria-hidden="true"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -45,7 +46,7 @@ export default function Nosotros() {
             <div className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-lg overflow-hidden shadow-xl">
               <Image
                 src="/Nosotros 1.jpg"
-                alt=""
+                alt="Pan artesanal"
                 fill={true}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
@@ -57,7 +58,7 @@ export default function Nosotros() {
               <div className="relative w-full aspect-square rounded-lg overflow-hidden shadow-xl">
                 <Image
                   src="/Nosotros 2.jpg"
-                  alt=""
+                  alt="Taza de café con latte art"
                   fill={true}
                   sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover"
@@ -67,7 +68,7 @@ export default function Nosotros() {
               <div className="relative w-full aspect-square rounded-lg overflow-hidden shadow-xl">
                 <Image
                   src="/Nosotros 3.jpg"
-                  alt=""
+                  alt="Postre dulce bañado en caramelo"
                   fill={true}
                   sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover"
