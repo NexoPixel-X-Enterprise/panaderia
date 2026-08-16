@@ -34,6 +34,7 @@ export default function Nosotros() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           
+          {/*Columna de imágenes*/}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -41,15 +42,40 @@ export default function Nosotros() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative w-full h-80 md:h-96"
           >
-            <Image
-              src="/Nosotros 1.jpg"
-              alt=""
-              fill={true}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
+            <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-xl">
+              <Image
+                src="/Nosotros 1.jpg"
+                alt=""
+                fill={true}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
+              />
+            </div>
+
+            {/*Imagenes inferiores*/}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="relative w-full h-32 md:h-48 rounded-lg overflow-hidden shadow-xl">
+                <Image
+                  src="/Nosotros 2.jpg"
+                  alt=""
+                  fill={true}
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative w-full h-32 md:h-48 rounded-lg overflow-hidden shadow-xl">
+                <Image
+                  src="/Nosotros 3.jpg"
+                  alt=""
+                  fill={true}
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
           </motion.div>
 
+          {/*Columna del contenido*/}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
