@@ -40,9 +40,9 @@ export default function Nosotros() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative w-full h-80 md:h-96"
+            className="flex flex-col gap-4 w-full"
           >
-            <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-xl">
+            <div className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-lg overflow-hidden shadow-xl">
               <Image
                 src="/Nosotros 1.jpg"
                 alt=""
@@ -54,7 +54,7 @@ export default function Nosotros() {
 
             {/*Imagenes inferiores*/}
             <div className="grid grid-cols-2 gap-4">
-              <div className="relative w-full h-32 md:h-48 rounded-lg overflow-hidden shadow-xl">
+              <div className="relative w-full aspect-square rounded-lg overflow-hidden shadow-xl">
                 <Image
                   src="/Nosotros 2.jpg"
                   alt=""
@@ -63,7 +63,8 @@ export default function Nosotros() {
                   className="object-cover"
                 />
               </div>
-              <div className="relative w-full h-32 md:h-48 rounded-lg overflow-hidden shadow-xl">
+
+              <div className="relative w-full aspect-square rounded-lg overflow-hidden shadow-xl">
                 <Image
                   src="/Nosotros 3.jpg"
                   alt=""
