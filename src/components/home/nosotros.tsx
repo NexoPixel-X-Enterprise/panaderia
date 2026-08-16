@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default function Nosotros() {
   return (
-    <section id='nosotros' className="py-16 md:py-24 bg-[#FDF9F3]">
+    <section id='nosotros' className="py-16 md:py-24 bg-[#F8F4E3]">
       <div className="container mx-auto px-6 max-w-6xl">
         
         <motion.h2 
