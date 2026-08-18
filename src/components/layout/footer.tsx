@@ -19,8 +19,8 @@ const MailIcon = () => (
 
 {/*Arreglo para los iconos svg*/}
 const socialLinks = [
-  { name: 'Instagram', href: 'https://instagram.com', icon: <InstagramIcon /> },
-  { name: 'Correo electrónico', href: 'mailto:nexopixelx@egmail.com', icon: <MailIcon /> },
+  { name: 'Instagram', href: 'https://www.instagram.com/nexopixel_25', icon: <InstagramIcon /> },
+  { name: 'Correo electrónico', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=nexopixelx@gmail.com', icon: <MailIcon /> },
 ];
 
 {/*Arreglo para los vinculos de la columna de columna izquieda*/}
@@ -39,11 +39,11 @@ export default function Footer() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: false }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="container mx-auto px-6 py-12 max-w-6xl"
+        className="container mx-auto px-6 py-12 max-w-6xl mt-8"
       >
         {/*Cuadricula de las columnas*/}
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-          <aside>
+        <div className="w-full md:px-12 lg:px-24 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+          <aside className="w-max mx-auto md:mx-0 md:justify-self-start">
             <h2>En esta página</h2>
             <nav className="flex flex-col gap-2">
               {/*Panel de navegación izquierdo -> esto remplaza la versión anterior*/}
@@ -56,7 +56,7 @@ export default function Footer() {
             </nav>
           </aside>
 
-          <main>
+          <main className="w-max mx-auto md:justify-self-center">
             <h3>Sucursales</h3>
             <ul className="flex flex-col gap-2">
               <li>Opera Dely</li>
@@ -65,11 +65,18 @@ export default function Footer() {
             </ul>
           </main>
 
-          <aside>
+          <aside className="w-max mx-auto md:mx-0 md:justify-self-end">
             <h3>Contáctanos</h3>
             <div className="flex justify-center md:justify-start space-x-4 pt-2">
               {socialLinks.map((link) => (
-                <a key={link.name} href={link.href} className="text-gray-400 hover:text-[#D6B58B] transition-colors" aria-label={link.name}>
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#CDA592] transition-colors"
+                  aria-label={link.name}
+                >
                   {link.icon}
                 </a>
               ))}
@@ -78,7 +85,7 @@ export default function Footer() {
         </div>
 
         {/*Linea de separación*/}
-        <div className="mt-20 h-[3px] bg-foreground text-center mb-12"> </div>
+        <div className="mt-20 h-[6px] bg-foreground text-center mb-12 rounded-full"> </div>
 
         <p className = "text-center mb-8">
           &copy; {new Date().getFullYear()} NexoPixelX - Todos los derechos reservados.
