@@ -9,54 +9,47 @@ const socialLinks = [
 ];
 
 const navLinks = [
-  { name: 'Inicio', href: '#inicio' },
-  { name: 'Nosotros', href: '#nosotros' },
-  { name: 'Ofertas', href: '#ofertas' },
-  { name: 'Sucursales', href: '#sucursales' },
+  {name: 'Inicio', href: '#inicio'},
+  {name: 'Nosotros', href: '#nosotros'},
+  {name: 'Ofertas', href: '#ofertas'},
+  {name: 'Sucursales', href: '#sucursales'},
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1E1E1E] text-white">
+    <footer className="bg-background text-foreground">
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 1, ease: "easeOut" }}
         className="container mx-auto px-6 py-12 max-w-6xl"
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-          <aside className="space-y-4">
-            <h2 className="text-2xl font-Lora text-[#F8F4E3]">En esta página</h2>
-            <nav className="flex flex-col gap-1 text-[#F8F4E3] font-Lato">
-              <Link href="#inicio" className="group relative hover:text-[#CDA592] transition-colors">
-                Inicio
-                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
-              </Link>
-              <Link href="#nosotros" className="group relative hover:text-[#CDA592] transition-colors">
-                Nosotros
-                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
-              </Link><Link href="#ofertas" className="group relative hover:text-[#CDA592] transition-colors">
-                Ofertas
-                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
-              </Link><Link href="#sucursales" className="group relative hover:text-[#CDA592] transition-colors">
-                Sucursales
-                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
-              </Link>
+          <aside>
+            <h2>En esta página</h2>
+            <nav className="flex flex-col gap-2">
+              {/*Panel de navegación izquierdo -> esto remplaza la versión anterior*/}
+              {navLinks.map((link) => (
+                <Link key={link.name} href={link.href} className="group relative w-max mx-auto md:mx-0 hover:text-[#CDA592] transition-colors">
+                  {link.name}
+                  <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+              ))}
             </nav>
           </aside>
 
-          <main className="space-y-4">
-            <h2 className="text-xl font-Lora text-[#F8F4E3]">Sucursales</h2>
-            <ul className="flex flex-col gap-2 font-Lora text-[#F8F4E3]">
-              <div>Opera Dely</div>
-              <div>Kamut Bakery Deli</div>
-              <div>Panadería El Fraile</div>
+          <main>
+            <h3>Sucursales</h3>
+            <ul className="flex flex-col gap-2">
+              <li>Opera Dely</li>
+              <li>Kamut Bakery Deli</li>
+              <li>Panadería El Fraile</li>
             </ul>
           </main>
 
-          <aside className="space-y-4">
-            <h2 className="text-xl font-Lora text-[#F8F4E3]">Contáctanos</h2>
+          <aside>
+            <h3>Contáctanos</h3>
             <div className="flex justify-center md:justify-start space-x-4 pt-2">
               {socialLinks.map((link) => (
                 <a key={link.name} href={link.href} className="text-gray-400 hover:text-[#D6B58B] transition-colors" aria-label={link.name}>
@@ -67,9 +60,10 @@ export default function Footer() {
           </aside>
         </div>
 
-        <div className="mt-20 h-[3px] bg-[#F8F4E3] text-center mb-12"> </div>
+        {/*Linea de separación*/}
+        <div className="mt-20 h-[3px] bg-foreground text-center mb-12"> </div>
 
-        <p className = "text-[#F8F4E3] font-Lato text-center mb-8">
+        <p className = "text-center mb-8">
           &copy; {new Date().getFullYear()} NexoPixelX - Todos los derechos reservados.
         </p>
       </motion.div>
