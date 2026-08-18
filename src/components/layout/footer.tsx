@@ -25,7 +25,8 @@ export default function Footer() {
         transition={{ duration: 1, ease: "easeOut" }}
         className="container mx-auto px-6 py-12 max-w-6xl"
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+        {/*Cuadricula de las columnas*/}
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
           <aside>
             <h2>En esta página</h2>
             <nav className="flex flex-col gap-2">
