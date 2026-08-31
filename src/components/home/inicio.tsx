@@ -16,10 +16,10 @@ export default function Inicio() {
           className="object-cover opacity-60"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"></div>
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"></div>
       </div>
 
-      <main className="relative z-10 flex flex-col items-center justify-center text-center px-6 w-full max-w-4xl mx-auto">
+      <header className="relative z-10 flex flex-col items-center justify-center text-center px-6 w-full max-w-4xl mx-auto">
         
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -34,6 +34,7 @@ export default function Inicio() {
         </motion.h1>
         
         <motion.div
+          aria-hidden="true"
           initial={{ opacity: 0, scaleX: 0 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: false }}
@@ -51,7 +52,7 @@ export default function Inicio() {
           Todo hecho con el mayor cariño del mundo
         </motion.h3>
         
-      </main>
+      </header>
 
     </section>
   );
