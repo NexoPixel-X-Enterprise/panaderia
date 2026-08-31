@@ -16,6 +16,7 @@ export default function Inicio() {
           className="object-cover opacity-60"
           priority
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"></div>
       </div>
 
       <main className="relative z-10 flex flex-col items-center justify-center text-center px-6 w-full max-w-4xl mx-auto">
