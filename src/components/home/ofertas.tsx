@@ -4,121 +4,172 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useState } from 'react';
 
-export default function Ofertas() {
+const Oferta = [
+  {
+    id: 1,
+    Titulo: 'Pizza Familiar',
+    Descripcion: 'Pizza deliciosa para toda la familia',
+    Etiquetas: ['Almuerzo', 'Pizza'],
+    Imagen: '/Ofertas1.png',
+    Costo: '3.50 $',
+  },
+  {
+    id: 2,
+    Titulo: 'Profiterol',
+    Descripcion: 'Delicioso profiterol cubierto de chocolate',
+    Etiquetas: ['Dulce', 'Reposteria'],
+    Imagen: '/Ofertas2.png',
+    Costo: '3.50 $',
+  },
+  {
+    id: 3,
+    Titulo: 'Pizza Familiar',
+    Descripcion: 'Pizza deliciosa para toda la familia',
+    Etiquetas: ['Almuerzo', 'Pizza'],
+    Imagen: '/Ofertas1.png',
+    Costo: '3.50 $',
+  },
+  {
+    id: 4,
+    Titulo: 'Profiterol',
+    Descripcion: 'Delicioso profiterol cubierto de chocolate',
+    Etiquetas: ['Dulce', 'Reposteria'],
+    Imagen: '/Ofertas2.png',
+    Costo: '3.50 $',
+  }
+];
 
-  const offers = [
-    {
-      id: 1,
-      title: 'Pan Artesanal',
-      description: 'Pan',
-      imageUrl: '/pan-artesanal.png',
-      price: '5.99$',
-    },
-    {
-      id: 2,
-      title: 'Dulces de Temporada',
-      description: 'Dulces',
-      imageUrl: '/dulces.png',
-      price: 'Desde 3.50$',
-    },
-    {
-      id: 3,
-      title: 'Café',
-      description: 'Café',
-      imageUrl: '/cafe.png',
-      price: '3.00$',
-    },
+export default function Ofertas() {
+  const [currentOfertaIndex, setCurrentOfertaIndex] = useState(0);
+
+  const goToPreviousOferta = () => {
+    setCurrentOfertaIndex((prevIndex) =>
+      prevIndex === 0 ? Oferta.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToNextOferta = () => {
+    setCurrentOfertaIndex((prevIndex) =>
+      prevIndex === Oferta.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const visibleOferta = [
+    Oferta[currentOfertaIndex],
+    Oferta[(currentOfertaIndex + 1) % Oferta.length]
   ];
 
-  const [currentOfferIndex, setCurrentOfferIndex] = useState(0);
-
-  const goToPreviousOffer = () => {
-    setCurrentOfferIndex((prevIndex) =>
-      prevIndex === 0 ? offers.length - 1 : prevIndex - 1
-    );
-  };
-
-  const goToNextOffer = () => {
-    setCurrentOfferIndex((prevIndex) =>
-      prevIndex === offers.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const currentOffer = offers[currentOfferIndex];
-
   return (
-    <section id='ofertas' className="py-16 md:py-24 bg-[#FDF9F3]">
-      <div className="container mx-auto px-6 max-w-6xl">
-        
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-3xl md:text-4xl font-title text-center text-[#402E32] mb-4"
-        >
-          Ofertas Especiales
-        </motion.h2>
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-          className="w-24 h-1 bg-[#D6B58B] mx-auto mb-12 rounded-full"
+    <section id='Oferta' className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden text-foreground">
+      
+      <div className="absolute inset-0 z-0">
+        <Image 
+          src="/Ofertas.png"
+          alt="Fondo de sección Oferta" 
+          fill={true}
+          sizes="100vw"
+          className="object-cover"
         />
+      </div>
 
-        <div className="relative flex items-center justify-center">
-          <motion.button
-            onClick={goToPreviousOffer}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
-            className="absolute left-0 z-10 p-2 bg-[#D6B58B] text-white rounded-full shadow-lg hover:bg-[#C2A17C] focus:outline-none focus:ring-2 focus:ring-[#D6B58B] focus:ring-opacity-75"
+      <div className="relative z-10 container mx-auto px-6 max-w-6xl">
+        
+        <header className="flex items-center justify-center gap-4 w-full max-w-4xl mx-auto mb-12">
+          <div className="flex-grow h-[1px] bg-foreground"></div>
+          <div className="w-3 h-3 rounded-full border-[1.5px] border-foreground"></div>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="m-0 px-2 tracking-wide font-normal"
+          >
+            Oferta
+          </motion.h2>
+          
+          <div className="w-3 h-3 rounded-full border-[1.5px] border-foreground"></div>
+          <div className="flex-grow h-[1px] bg-foreground"></div>
+        </header>
+
+        <div className="relative flex items-center justify-between w-full">
+          
+          <button
+            onClick={goToPreviousOferta}
+            className="absolute left-0 md:-left-12 z-20 p-2 text-foreground hover:text-[#CDA592] transition-colors focus:outline-none"
             aria-label="Oferta anterior"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 md:h-12 md:w-12 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-          </motion.button>
+          </button>
 
-          <motion.div
-            key={currentOffer.id} 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="w-full max-w-2xl bg-white rounded-lg shadow-xl p-8 md:p-10 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8"
-          >
-            <div className="relative w-48 h-48 md:w-64 md:h-64 flex-shrink-0 rounded-lg overflow-hidden">
-              <Image
-                src={currentOffer.imageUrl}
-                alt={currentOffer.title}
-                fill={true}
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl font-title text-[#402E32] mb-3">{currentOffer.title}</h3>
-              <p className="text-base text-gray-700 leading-relaxed mb-4">{currentOffer.description}</p>
-              <p className="text-xl font-bold text-[#D6B58B]">{currentOffer.price}</p>
-            </div>
-          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto px-12 md:px-4">
+            {visibleOferta.map((Oferta, index) => (
+              <motion.div
+                key={`${Oferta.id}-${currentOfertaIndex}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+                className={`bg-foreground text-background rounded-sm p-5 shadow-2xl flex-col h-full ${index === 1 ? 'hidden md:flex' : 'flex'}`}
+              >
+                
+                <div className="relative w-full h-48 md:h-56 rounded-sm overflow-hidden mb-4 border border-gray-200">
+                  <Image
+                    src={Oferta.Imagen}
+                    alt={Oferta.Titulo}
+                    fill={true}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
 
-          <motion.button
-            onClick={goToNextOffer}
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
-            className="absolute right-0 z-10 p-2 bg-[#D6B58B] text-white rounded-full shadow-lg hover:bg-[#C2A17C] focus:outline-none focus:ring-2 focus:ring-[#D6B58B] focus:ring-opacity-75"
+                <div className="flex justify-between items-end mb-2">
+                  <h3 className="m-0 leading-none">{Oferta.Titulo}</h3>
+                  <span className="text-xl font-bold font-Titulo">{Oferta.Costo}</span>
+                </div>
+                
+                <hr className="w-full border-t border-background opacity-20 mb-5" />
+
+                <div className="flex flex-row gap-6 mb-6 flex-grow">
+                  
+                  <div className="w-1/2 flex flex-col">
+                    <span className="text-sm font-Titulo font-bold mb-2">Descripción</span>
+                    <p className="m-0 text-xs opacity-80 leading-relaxed text-balance">
+                      {Oferta.Descripcion}
+                    </p>
+                  </div>
+                  
+                  <div className="w-1/2 flex flex-col">
+                    <span className="text-sm font-Titulo font-bold mb-2">Etiquetas</span>
+                    <div className="flex flex-wrap gap-2">
+                      {Oferta.Etiquetas.map((tag, i) => (
+                        <span key={i} className="bg-[#CDA592] text-background text-[10px] px-3 py-1 rounded-full font-bold">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <button className="w-full mt-auto bg-background text-foreground py-3 text-sm tracking-[0.2em] font-bold hover:bg-[#CDA592] transition-colors">
+                  COMPRAR
+                </button>
+                
+              </motion.div>
+            ))}
+          </div>
+
+          <button
+            onClick={goToNextOferta}
+            className="absolute right-0 md:-right-12 z-20 p-2 text-foreground hover:text-[#CDA592] transition-colors focus:outline-none"
             aria-label="Siguiente oferta"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 md:h-12 md:w-12 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-          </motion.button>
+          </button>
+          
         </div>
       </div>
     </section>
