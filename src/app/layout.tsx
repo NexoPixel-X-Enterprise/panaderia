@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lora, Lato } from "next/font/google";
 import "../components/styles/globals.css";
 import Header from "../components/layout/header";
+import Footer from "../components/layout/footer";
 
 const lora = Lora({
   variable: "--font-lora",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <Header />
         {children}
+        <Footer />
         </body>
     </html>
   );
