@@ -59,28 +59,28 @@ export default function Ofertas() {
   return (
     <section id='Oferta' className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden bg-foreground text-background">
 
-      <div className="relative z-10 container mx-auto">
-        
-        <header className="w-full flex flex-col items-center mb-12">
-          <motion.h2
-            aria-hidden="true"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-center"
-          >
-            Destacado
-          </motion.h2>
+      <header className="w-full flex flex-col items-center mb-12 px-12">
+        <motion.h2
+          aria-hidden="true"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center"
+        >
+          Destacado
+        </motion.h2>
 
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-            className="w-full h-1 bg-background mx-auto mb-12 rounded-full"
-          />
-        </header>
+        <motion.div
+          initial={{ opacity: 0, scaleX: 0 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
+          className="w-full h-1 bg-background mx-auto mb-12 rounded-full"
+        />
+      </header>
+
+      <div className="relative z-10 container mx-auto">
 
        <div className="relative flex items-center justify-center w-full mx-auto">
           
