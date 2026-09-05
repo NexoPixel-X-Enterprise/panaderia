@@ -60,38 +60,31 @@ export default function Ofertas() {
   ];
 
   return (
-    <section id='Oferta' className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden text-foreground">
-      
-      <div className="absolute inset-0 z-0">
-        <Image 
-          src="/Ofertas.png"
-          alt="Fondo de sección Oferta" 
-          fill={true}
-          sizes="100vw"
-          className="object-cover"
-        />
-      </div>
+    <section id='Oferta' className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden bg-foreground text-background">
 
-      <div className="relative z-10 container mx-auto px-6 max-w-6xl">
-        
-        <header className="flex items-center justify-center gap-4 w-full max-w-4xl mx-auto mb-12">
-          <div className="flex-grow h-[1px] bg-foreground"></div>
-          <div className="w-3 h-3 rounded-full border-[1.5px] border-foreground"></div>
-          
-          <motion.h2 
-            initial={{ opacity: 0, y: -10 }}
+        <header className="w-full flex flex-col items-center mb-12 bg-background text-foreground">
+          <motion.h2
+            aria-hidden="true"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="m-0 px-2 tracking-wide font-normal"
+            className="text-center"
           >
-            Oferta
+            Menu
           </motion.h2>
-          
-          <div className="w-3 h-3 rounded-full border-[1.5px] border-foreground"></div>
-          <div className="flex-grow h-[1px] bg-foreground"></div>
+
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
+            className="w-full h-1 bg-[#CDA592] mx-auto mb-12 rounded-full"
+          />
         </header>
 
+      <div className="relative z-10 container mx-auto">
+        
         <div className="relative flex items-center justify-between w-full">
           
           <button
@@ -99,12 +92,10 @@ export default function Ofertas() {
             className="absolute left-0 md:-left-12 z-20 p-2 text-foreground hover:text-[#CDA592] transition-colors focus:outline-none"
             aria-label="Oferta anterior"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 md:h-12 md:w-12 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
+            <svg> {/*Agregar boton de siguiente en numero*/} </svg>
           </button>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto px-12 md:px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-4 gap-8 w-full max-w-4xl mx-auto px-12 md:px-4">
             {visibleOferta.map((Oferta, index) => (
               <motion.div
                 key={`${Oferta.id}-${currentOfertaIndex}`}
@@ -165,9 +156,7 @@ export default function Ofertas() {
             className="absolute right-0 md:-right-12 z-20 p-2 text-foreground hover:text-[#CDA592] transition-colors focus:outline-none"
             aria-label="Siguiente oferta"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 md:h-12 md:w-12 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            {/*Agregar boton de siguiente en numero*/}
           </button>
           
         </div>
