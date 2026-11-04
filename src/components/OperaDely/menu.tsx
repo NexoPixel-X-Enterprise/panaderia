@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const Oferta = [
   {
-    id: 1,
+    id: 0,
     Titulo: 'Pizza Familiar',
     Descripcion: 'Pizza deliciosa para toda la familia',
     Etiquetas: ['Almuerzo', 'Pizza'],
@@ -14,7 +14,7 @@ const Oferta = [
     Costo: '3.50 $',
   },
   {
-    id: 2,
+    id: 1,
     Titulo: 'Profiterol',
     Descripcion: 'Delicioso profiterol cubierto de chocolate',
     Etiquetas: ['Dulce', 'Reposteria'],
@@ -22,7 +22,7 @@ const Oferta = [
     Costo: '3.50 $',
   },
   {
-    id: 3,
+    id: 2,
     Titulo: 'Pizza Familiar',
     Descripcion: 'Pizza deliciosa para toda la familia',
     Etiquetas: ['Almuerzo', 'Pizza'],
@@ -30,7 +30,7 @@ const Oferta = [
     Costo: '3.50 $',
   },
   {
-    id: 4,
+    id: 3,
     Titulo: 'Profiterol',
     Descripcion: 'Delicioso profiterol cubierto de chocolate',
     Etiquetas: ['Dulce', 'Reposteria'],
@@ -39,8 +39,16 @@ const Oferta = [
   }
 ];
 
+// Extraer etiquetas del arreglo
+const todasLasEtiquetas = ['Todos', ...Array.from(new Set(Oferta.flatMap(o => o.Etiquetas)))];
+
 export default function Ofertas() {
   const [currentOfertaIndex, setCurrentOfertaIndex] = useState(0);
+
+  // filtros
+  const [busqueda, setBusqueda] = useState('');
+  const [orden, setOrden] = useState('');
+  const [etiquetaActiva, setEtiquetaActiva] = useState('Todos');
 
   const goToPreviousOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
@@ -81,6 +89,55 @@ export default function Ofertas() {
             transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
             className="w-full h-1 bg-[#CDA592] mx-auto mb-12 rounded-full"
           />
+
+         
+          <div className="w-full max-w-6xl mx-auto px-12 md:px-8 mb-12 flex flex-col gap-6 z-20">
+            
+            {/* barra de busqueda*/}
+            <div className="flex flex-col md:flex-row gap-4 w-full">
+              <input
+                type="text"
+                placeholder="Buscar un producto..."
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                className="w-full md:w-2/3 bg-foreground text-background border-2 border-[#CDA592] rounded-xl px-6 py-3 outline-none focus:ring-2 focus:ring-[#CDA592]/50 transition-all placeholder:text-background/50"
+              />
+              
+              {/* barra para ordenar*/}
+              <div className="relative w-full md:w-1/3">
+                <select
+                  value={orden}
+                  onChange={(e) => setOrden(e.target.value)}
+                  className="w-full bg-foreground text-background border-2 border-[#CDA592] rounded-xl px-6 py-3 appearance-none outline-none"
+                >
+                  <option value="">Ordenar por</option>
+                  <option value="precio-asc">Menor precio</option>
+                  <option value="precio-desc">Mayor precio</option>
+                  <option value="nombre">Nombre A-Z</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-5 text-[#CDA592]">
+                  <span className="text-xs">▼</span>
+                </div>
+              </div>
+            </div>
+
+            {/*Etiquetas */}
+            <div className="flex flex-wrap gap-3 mt-2">
+              {todasLasEtiquetas.map((etiqueta) => (
+                <button
+                  key={etiqueta}
+                  onClick={() => setEtiquetaActiva(etiqueta)}
+                  className={`px-6 py-1.5 rounded-full text-sm font-medium transition-colors border-4 border-[#CDA592] ${
+                    etiquetaActiva === etiqueta
+                      ? 'bg-[#CDA592] text-background border-[#CDA592]' // Activo
+                      : 'bg-transparent text-foreground hover:bg-[#CDA592]/20' // Inactivo
+                  }`}
+                >
+                  {etiqueta}
+                </button>
+              ))}
+            </div>
+          </div>
         </header>
 
       <div className="relative z-10 container mx-auto">
@@ -95,8 +152,8 @@ export default function Ofertas() {
             <svg> {/*Agregar boton de siguiente en numero*/} </svg>
           </button>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-4 gap-8 w-full max-w-4xl mx-auto px-12 md:px-4">
-            {visibleOferta.map((Oferta, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-24 w-full max-w-6xl mx-auto px-12 md:px-4">
+            {Oferta.map((Oferta, index) => (
               <motion.div
                 key={`${Oferta.id}-${currentOfertaIndex}`}
                 initial={{ opacity: 0, scale: 0.95 }}
