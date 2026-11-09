@@ -3,82 +3,108 @@
 import { motion } from 'motion/react';
 import Image from 'next/image';
 
-const branches = [
+const Sedes = [
+  {
+    id: 0,
+    Nombre: 'Opera Dely',
+    Direccion: 'Avenida Paez, El Paraíso',
+    Link: 'https://maps.app.goo.gl/jQPXaU6FdGoFtXNM8',
+    Imagen: '/Mapa.jpg',
+    Logo: '/Opera.png',
+  },
   {
     id: 1,
-    name: 'Opera Deli',
-    address: 'Agregar',
-    mapLink: 'https://maps.app.goo.gl/jQPXaU6FdGoFtXNM8',
-    imageUrl: '/s1.png',
+    Nombre: 'Kamut Bakery Deli',
+    Direccion: 'Aveenida Sur 14, San Juan, Caracas',
+    Link: 'https://maps.app.goo.gl/EPiXuxUoME8DmPEN6',
+    Imagen: '/Mapa.jpg',
+    Logo: '/Kamut.png',
   },
   {
     id: 2,
-    name: 'Sucursal del Mercado',
-    address: 'La dirección',
-    mapLink: 'https://maps.app.goo.gl/EPiXuxUoME8DmPEN6',
-    imageUrl: '/s2.png',
-  },
-  {
-    id: 3,
-    name: 'Sucursal del Norte',
-    address: 'Aquí XD',
-    mapLink: 'https://maps.app.goo.gl/if1U3H5jHERw4ozcA',
-    imageUrl: '/s3.png',
+    Nombre: 'Panadería El Fraile',
+    Direccion: 'Aveenida Sur 14, San Juan, Caracas',
+    Link: 'https://maps.app.goo.gl/if1U3H5jHERw4ozcA',
+    Imagen: '/Mapa.jpg',
+    Logo: '/Kamut.png',
   },
 ];
 
 export default function Sucursales() {
   return (
-    <section id='sucursales' className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-6 max-w-6xl">
-        
+    <section id='sucursales' className="pt-8 pb-16 md:pt-12 md:pb-18 bg-foreground">
+
+      {/*Titulo y línea decorativa*/}
+      <div className = "w-full mx-auto px-6"> 
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-3xl md:text-4xl font-title text-center text-[#402E32] mb-4"
+          className="text-center text-background mb-4"
         >
-          Nuestras Sucursales
+          Sucursales
         </motion.h2>
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-          className="w-24 h-1 bg-[#D6B58B] mx-auto mb-12 rounded-full"
+          className="h-1 mb-12 rounded-full bg-background"
         />
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {branches.map((branch, index) => (
+      {/*Contenido*/}
+      <div className="w-full mx-auto px-6 md:px-12 max-w-[1400px]">
+
+        {/*Codigo typescript para que el map genere los 3 cuadros de las sucursales*/}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {Sedes.map((Sedes, index) => (
             <motion.div
-              key={branch.id}
+              key={Sedes.id}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ duration: 0.5, delay: index * 0.2, ease: "easeOut" }}
-              className="bg-[#FDF9F3] rounded-lg shadow-lg overflow-hidden flex flex-col"
+              className="bg-background rounded-lg shadow-lg overflow-hidden flex flex-col"
             >
-              <div className="relative w-full h-56">
+              {/*Div provisional para lograr el marco con el fill={true}*/}
+              <div className="w-full px-6 pt-6"> 
+                <div className="relative w-full h-56 md:h-64 rounded-lg overflow-hidden">
                 <Image
-                  src={branch.imageUrl}
-                  alt={`Fachada de la ${branch.name}`}
+                  src={Sedes.Imagen}
+                  alt={Sedes.Nombre}
                   fill={true}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
               </div>
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-xl font-title text-[#402E32] mb-2">{branch.name}</h3>
-                <p className="text-base text-gray-600 mb-4 flex-grow">{branch.address}</p>
-                <a
-                  href={branch.mapLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-block text-center bg-[#D6B58B] text-white font-bold py-2 px-4 rounded-md hover:bg-[#C2A17C] transition-colors duration-300"
-                >
-                  Ver en Google Maps
-                </a>
+              </div>
+              <div className="p-6 flex flex-row items-center gap-6 flex-grow">
+                {Sedes.Logo && (
+                  <div className="relative w-20 h-20 md:w-24 md:h-24 flex-shrink-0">
+                    <Image
+                      src={Sedes.Logo}
+                      alt={`Logo de ${Sedes.Nombre}`}
+                      fill={true}
+                      className="object-contain" 
+                    />
+                  </div>
+                )}
+
+                <div className="flex flex-col flex-grow">
+                  <h3 className="mb-2">{Sedes.Nombre}</h3>
+                  <hr className="w-full border-t border-foreground opacity-30 mb-2" /> {/*Linea decorativa*/}
+                  <p className="text-base text-foreground mb-4 flex-grow">{Sedes.Direccion}</p>
+                  <a
+                    href={Sedes.Link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-block text-center bg-foreground text-background font-bold py-2 px-4 rounded-md hover:bg-[#CDA592] transition-colors"
+                  >
+                    VER CATÁLOGO
+                  </a>
+                </div>
               </div>
             </motion.div>
           ))}
