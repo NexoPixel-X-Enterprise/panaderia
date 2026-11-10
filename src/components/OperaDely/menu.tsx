@@ -96,7 +96,7 @@ export default function Menu({ ofertas }: Props) {
               className="w-full md:w-2/3 bg-foreground text-background border-2 border-[#CDA592] rounded-xl px-6 py-3 outline-none focus:ring-2 focus:ring-[#CDA592]/50 transition-all placeholder:text-background/50"
             />
 
-            {/* PASO 5.4: Selector para ordenar */}
+  
             <div className="relative w-full md:w-1/3">
 
               <select
@@ -117,7 +117,7 @@ export default function Menu({ ofertas }: Props) {
             </div>
           </div>
 
-          {/* PASO 5.5: Etiquetas dinámicas */}
+      
           <div className="flex flex-wrap gap-3 mt-2">
 
             {todasLasEtiquetas.map((etiqueta) => (

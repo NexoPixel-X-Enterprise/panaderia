@@ -10,14 +10,14 @@ export type Oferta = {
 
 export function transformarOfertas(datos: any[]): Oferta[] {
   return datos.map((registro) => ({
-    id: registro.idProducto,
+    id: registro.idproducto,
 
-    Titulo: registro.producto.nombreProducto,
+    Titulo: registro.producto.nombreproducto,
 
     Descripcion: registro.producto.descripcion ?? '',
 
     Etiquetas: (registro.producto.categoriaproducto ?? []).map(
-      (relacion: any) => relacion.categoria.nombreCategoria
+      (relacion: any) => relacion.categoria.nombrecategoria
     ),
 
     Imagen: registro.producto.imagen,

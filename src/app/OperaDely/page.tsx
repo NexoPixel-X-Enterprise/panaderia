@@ -13,43 +13,44 @@ export default async function Home() {
  
   const { data: sucursal, error: errorSucursal } = await supabase
     .from('sucursales')
-    .select('idSucursal, nombreSucursal')
-    .eq('nombreSucursal', 'OperaDely')
+    .select('idsucursal, nombresucursal')
+    .eq('nombresucursal', 'OperaDely')
     .single();
 
+  
   if (errorSucursal) {
-    {/*console.error(errorSucursal);*/}
-    return <p>No se pudo encontrar la sucursal OperaDely.</p>;
+    console.warn("Error al obtener sucursal:", errorSucursal);
   }
 
   
   const { data: inventario, error: errorInventario } = await supabase
     .from('inventario')
     .select(`
-      idProducto,
-      idSucursal,
+      idproducto,
+      idsucursal,
       precio,
       producto (
-        idProducto,
-        nombreProducto,
+        idproducto,
+        nombreproducto,
         descripcion,
         imagen,
         categoriaproducto (
           categoria (
-            idCategoria,
-            nombreCategoria
+            idcategoria,
+            nombrecategoria
           )
         )
       )
     `)
     .eq('idsucursal', 1);
+    
 
   if (errorInventario) {
-    console.error(errorInventario);
-    return <p>No se pudo obtener el catálogo.</p>;
+    console.warn("Error al obtener inventario:", errorInventario);
   }
 
-
+  console.log('Datos recibidos de Supabase:', inventario);
+  console.log('Primer producto:', inventario?.[0]);
   const ofertas = transformarOfertas(inventario ?? []);
   return (
     <main>
