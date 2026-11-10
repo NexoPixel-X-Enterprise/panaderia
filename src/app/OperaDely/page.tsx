@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 
 
 export default async function Home() {
+  
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
  
@@ -17,7 +18,7 @@ export default async function Home() {
     .single();
 
   if (errorSucursal) {
-    console.error(errorSucursal);
+    {/*console.error(errorSucursal);*/}
     return <p>No se pudo encontrar la sucursal OperaDely.</p>;
   }
 
@@ -41,7 +42,7 @@ export default async function Home() {
         )
       )
     `)
-    .eq('idSucursal', sucursal.idSucursal);
+    .eq('idsucursal', 1);
 
   if (errorInventario) {
     console.error(errorInventario);
