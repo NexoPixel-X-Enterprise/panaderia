@@ -30,7 +30,7 @@ export default function Inicio() {
         >
           Opera Dely <br className="hidden md:block"/>
           Lunes a Domingo <br className="hidden md:block"/>
-          7:00 am a 9:00 pm
+          6:30 am a 10:00 pm
         </motion.h1>
         
         <motion.div

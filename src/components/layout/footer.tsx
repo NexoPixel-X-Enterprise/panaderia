@@ -2,6 +2,7 @@
 
 import { motion } from 'motion/react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 {/*Componentes svg para los iconos*/}
 const InstagramIcon = () => (
@@ -23,15 +24,48 @@ const socialLinks = [
   { name: 'Correo electrónico', href: 'https://mail.google.com/mail/?view=cm&fs=1&to=nexopixelx@gmail.com', icon: <MailIcon /> },
 ];
 
-{/*Arreglo para los vinculos de la columna de columna izquieda*/}
-const navLinks = [
-  {name: 'Inicio', href: '#inicio'},
-  {name: 'Nosotros', href: '#nosotros'},
-  {name: 'Ofertas', href: '#ofertas'},
-  {name: 'Sucursales', href: '#sucursales'},
-];
+const linkSucursal = [
+  { name: 'Opera Dely', href: '/OperaDely' },
+  { name: 'Kamut Bakery Deli', href: '/KamutBakery' },
+  { name: 'Panadería El Fraile', href: '/ElFraile' }, 
+]
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  const LinksPorPagina = {
+    '/OperaDely': [
+      { nombre: 'Inicio', ruta: '#inicio' },
+      { nombre: 'Destacado', ruta: '#destacado' },
+      { nombre: 'Menu', ruta: '#menu' }
+    ],
+    '/KamutBakery': [
+      { nombre: 'Inicio', ruta: '#inicio' },
+      { nombre: 'Destacado', ruta: '#destacado' },
+      { nombre: 'Menu', ruta: '#menu' }
+    ],
+    '/ElFraile': [
+      { nombre: 'Inicio', ruta: '#inicio' },
+      { nombre: 'Destacado', ruta: '#destacado' },
+      { nombre: 'Menu', ruta: '#menu' }
+    ],
+  }
+
+  const linkActuales = LinksPorPagina[pathname as keyof typeof LinksPorPagina] || [
+    {nombre: 'Inicio', ruta: '#inicio'},
+    {nombre: 'Nosotros', ruta: '#nosotros'},
+    {nombre: 'Ofertas', ruta: '#ofertas'},
+    {nombre: 'Sucursales', ruta: '#sucursales'},
+  ];
+
+  const linkInicio = {
+    '/': [
+      { nombre: 'Pag. Principal', ruta: '#inicio' },
+    ],
+  }
+
+  const linkDeInicio = linkInicio[pathname as keyof typeof linkInicio] || [{nombre: 'Pag. Principal', ruta: '/' },];
+
   return (
     <footer className="bg-background text-foreground">
       <motion.div 
@@ -47,9 +81,13 @@ export default function Footer() {
             <h2>En esta página</h2>
             <nav className="flex flex-col gap-2">
               {/*Panel de navegación izquierdo -> esto remplaza la versión anterior*/}
-              {navLinks.map((link) => (
-                <Link key={link.name} href={link.href} className="group relative w-max mx-auto md:mx-0 hover:text-[#CDA592] transition-colors">
-                  {link.name}
+              {linkActuales.map((enlace) => (
+                <Link 
+                  key={enlace.ruta} 
+                  href={enlace.ruta}
+                  className="group relative w-max mx-auto md:mx-0 hover:text-[#CDA592] transition-colors"
+                >
+                  {enlace.nombre}
                   <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               ))}
@@ -58,11 +96,18 @@ export default function Footer() {
 
           <main className="w-max mx-auto md:justify-self-center">
             <h3>Sucursales</h3>
-            <ul className="flex flex-col gap-2">
-              <li>Opera Dely</li>
-              <li>Kamut Bakery Deli</li>
-              <li>Panadería El Fraile</li>
-            </ul>
+            <nav className="flex flex-col gap-2 pt-2">
+              {linkSucursal.map((link) => (
+                <Link 
+                  key={link.name} 
+                  href={link.href} 
+                  className="group relative w-max mx-auto md:mx-0 hover:text-[#CDA592] transition-colors"
+                >
+                  {link.name}
+                  <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
+              ))}
+            </nav>
           </main>
 
           <aside className="w-max mx-auto md:mx-0 md:justify-self-end">
@@ -79,6 +124,18 @@ export default function Footer() {
                 >
                   {link.icon}
                 </a>
+              ))}
+            </div>
+            <div className="flex justify-center md:justify-start space-x-4 pt-2 mt-6 mb-3 md:mt-8 md:mb-4">
+              {linkDeInicio.map((enlace) => (
+                <Link 
+                  key={enlace.ruta} 
+                  href={enlace.ruta}
+                  className="group relative w-max mx-auto md:mx-0 hover:text-[#CDA592] transition-colors"
+                >
+                  <h3>{enlace.nombre}</h3>
+                  <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </Link>
               ))}
             </div>
           </aside>

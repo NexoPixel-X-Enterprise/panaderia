@@ -60,7 +60,7 @@ export default function Menu({ ofertas }: Props) {
 
   return (
     <section
-      id="Menu"
+      id="menu"
       className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden bg-foreground text-background"
     >
       <header className="w-full flex flex-col items-center mb-12 bg-background text-foreground">

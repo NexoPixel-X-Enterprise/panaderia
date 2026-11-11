@@ -60,7 +60,7 @@ export default function Ofertas() {
   ];
 
   return (
-    <section id='Oferta' className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden text-foreground">
+    <section id='ofertas' className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden text-foreground">
       
       <div className="absolute inset-0 z-0">
         <Image 

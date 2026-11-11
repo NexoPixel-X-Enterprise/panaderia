@@ -34,7 +34,7 @@ export default function Destacado({ ofertas }: Props) {
 
   return (
     <section
-      id="Oferta"
+      id="destacado"
       className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden bg-foreground text-background"
     >
       <header className="w-full flex flex-col items-center mb-12 px-12">

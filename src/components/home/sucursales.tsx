@@ -15,7 +15,7 @@ const Sedes = [
   {
     id: 1,
     Nombre: 'Kamut Bakery Deli',
-    Direccion: 'Aveenida Sur 14, San Juan, Caracas',
+    Direccion: 'Avenida Sur 14, San Juan, Caracas',
     Link: 'https://maps.app.goo.gl/EPiXuxUoME8DmPEN6',
     Imagen: '/Mapa.jpg',
     Logo: '/Kamut.png',
@@ -23,7 +23,7 @@ const Sedes = [
   {
     id: 2,
     Nombre: 'Panadería El Fraile',
-    Direccion: 'Aveenida Sur 14, San Juan, Caracas',
+    Direccion: 'Avenida Sur 14, San Juan, Caracas',
     Link: 'https://maps.app.goo.gl/if1U3H5jHERw4ozcA',
     Imagen: '/Mapa.jpg',
     Logo: '/Kamut.png',
