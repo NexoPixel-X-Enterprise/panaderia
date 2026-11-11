@@ -2,13 +2,15 @@
 
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Sedes = [
   {
     id: 0,
     Nombre: 'Opera Dely',
     Direccion: 'Avenida Paez, El Paraíso',
-    Link: 'https://maps.app.goo.gl/jQPXaU6FdGoFtXNM8',
+    LinkMapa: 'https://maps.app.goo.gl/jQPXaU6FdGoFtXNM8',
+    Link: '/OperaDely',
     Imagen: '/Mapa.jpg',
     Logo: '/Opera.png',
   },
@@ -16,7 +18,8 @@ const Sedes = [
     id: 1,
     Nombre: 'Kamut Bakery Deli',
     Direccion: 'Avenida Sur 14, San Juan, Caracas',
-    Link: 'https://maps.app.goo.gl/EPiXuxUoME8DmPEN6',
+    LinkMapa: 'https://maps.app.goo.gl/EPiXuxUoME8DmPEN6',
+    Link: '/KamutBakery',
     Imagen: '/Mapa.jpg',
     Logo: '/Kamut.png',
   },
@@ -24,7 +27,8 @@ const Sedes = [
     id: 2,
     Nombre: 'Panadería El Fraile',
     Direccion: 'Avenida Sur 14, San Juan, Caracas',
-    Link: 'https://maps.app.goo.gl/if1U3H5jHERw4ozcA',
+    LinkMapa: 'https://maps.app.goo.gl/if1U3H5jHERw4ozcA',
+    Link: '/ElFraile',
     Imagen: '/Mapa.jpg',
     Logo: '/Kamut.png',
   },
@@ -70,15 +74,21 @@ export default function Sucursales() {
             >
               {/*Div provisional para lograr el marco con el fill={true}*/}
               <div className="w-full px-6 pt-6"> 
-                <div className="relative w-full h-56 md:h-64 rounded-lg overflow-hidden">
-                <Image
-                  src={Sedes.Imagen}
-                  alt={Sedes.Nombre}
-                  fill={true}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover"
-                />
-              </div>
+                <a 
+                  href={Sedes.LinkMapa} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="relative block w-full h-56 md:h-64 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                  title={`Ver ubicación de ${Sedes.Nombre} en Google Maps`}
+                >
+                  <Image
+                    src={Sedes.Imagen}
+                    alt={Sedes.Nombre}
+                    fill={true}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </a>
               </div>
               <div className="p-6 flex flex-row items-center gap-6 flex-grow">
                 {Sedes.Logo && (
@@ -96,14 +106,12 @@ export default function Sucursales() {
                   <h3 className="mb-2">{Sedes.Nombre}</h3>
                   <hr className="w-full border-t border-foreground opacity-30 mb-2" /> {/*Linea decorativa*/}
                   <p className="text-base text-foreground mb-4 flex-grow">{Sedes.Direccion}</p>
-                  <a
+                  <Link
                     href={Sedes.Link}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="mt-auto inline-block text-center bg-foreground text-background font-bold py-2 px-4 rounded-md hover:bg-[#CDA592] transition-colors"
                   >
                     VER CATÁLOGO
-                  </a>
+                  </Link>
                 </div>
               </div>
             </motion.div>
