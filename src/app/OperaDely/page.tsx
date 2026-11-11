@@ -1,13 +1,14 @@
-
 import Inicio from "../../components/OperaDely/inicio";
 import Destacado from "../../components/OperaDely/destacado";
 import Menu from "../../components/OperaDely/menu";
+
 import { createClient } from "@/supabase/server";
+import { cookies } from "next/headers";
+
 import {
   transformarOfertas,
-  type Oferta
+  type Oferta,
 } from "../../transformaciones/ofertas";
-import { cookies } from "next/headers";
 
 export default async function Home() {
   const cookieStore = await cookies();
@@ -16,7 +17,7 @@ export default async function Home() {
   let ofertas: Oferta[] = [];
   let ofertasDestacadas: Oferta[] = [];
 
-  // 1. Buscar la sucursal
+
   const { data: sucursal, error: errorSucursal } = await supabase
     .from("sucursales")
     .select("idsucursal, nombresucursal")
@@ -28,41 +29,14 @@ export default async function Home() {
   }
 
   if (sucursal) {
-
-    // 2. Obtener el inventario para el menú
+  
     const { data: inventario, error: errorInventario } = await supabase
       .from("inventario")
       .select(`
         idproducto,
         idsucursal,
         precio,
-        producto (
-          idproducto,
-          nombreproducto,
-          descripcion,
-          imagen,
-          categoriaproducto (
-            categoria (
-              idcategoria,
-              nombrecategoria
-            )
-          )
-        )
-      `)
-      .eq("idsucursal", sucursal.idsucursal);
-
-    if (errorInventario) {
-      console.error("Error al consultar el inventario:", errorInventario);
-    } else {
-      ofertas = transformarOfertas(inventario ?? []);
-    }
-
-      const { data: destacados, error: errorDestacados } = await supabase
-      .from("inventario")
-      .select(`
-        idproducto,
-        idsucursal,
-        precio,
+        esdestacado,
         producto (
           idproducto,
           nombreproducto,
@@ -77,18 +51,47 @@ export default async function Home() {
         )
       `)
       .eq("idsucursal", sucursal.idsucursal)
-      .eq("esdestacado", true)
-      .order("idproducto", { ascending: true })
-      .limit(5);
+      .order("idproducto", { ascending: true });
 
-    if (errorDestacados) {
-      console.error("Error al consultar los destacados:", errorDestacados);
+    if (errorInventario) {
+      console.error("Error al consultar el inventario:", errorInventario);
     } else {
-      ofertasDestacadas = transformarOfertas(destacados ?? []);
-    }
+      const inventarioConImagenes = (inventario ?? []).map(
+        (registro: any) => {
+          const producto = Array.isArray(registro.producto)
+            ? registro.producto[0]
+            : registro.producto;
 
+          const rutaImagen = producto?.imagen;
+
+          const urlImagen = rutaImagen
+            ? rutaImagen.startsWith("http")
+              ? rutaImagen
+              : supabase.storage
+                  .from("producto")
+                  .getPublicUrl(rutaImagen).data.publicUrl
+            : null;
+
+          return {
+            ...registro,
+            producto: {
+              ...producto,
+              imagen: urlImagen,
+            },
+          };
+        }
+      );
+      
+      ofertas = transformarOfertas(inventarioConImagenes);
+
+      const destacados = inventarioConImagenes
+        .filter((registro: any) => registro.esdestacado === true)
+        .slice(0, 5);
+
+      ofertasDestacadas = transformarOfertas(destacados);
+    }
   } else {
-    console.error("No se encontró la sucursal OperaDely.");
+    console.error("No se encontró la sucursal OperaDely");
   }
 
   return (

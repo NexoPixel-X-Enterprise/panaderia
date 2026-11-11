@@ -1,3 +1,4 @@
+
 export type Oferta = {
   id: number;
   Titulo: string;
@@ -9,21 +10,29 @@ export type Oferta = {
 };
 
 export function transformarOfertas(datos: any[]): Oferta[] {
-  return datos.map((registro) => ({
-    id: registro.idproducto,
+  return datos.map((registro) => {
+    const producto = Array.isArray(registro.producto)
+      ? registro.producto[0]
+      : registro.producto;
 
-    Titulo: registro.producto.nombreproducto,
+    const etiquetas = (producto?.categoriaproducto ?? []).map(
+      (relacion: any) => {
+        const categoria = Array.isArray(relacion.categoria)
+          ? relacion.categoria[0]
+          : relacion.categoria;
 
-    Descripcion: registro.producto.descripcion ?? '',
+        return categoria?.nombrecategoria;
+      }
+    ).filter(Boolean);
 
-    Etiquetas: (registro.producto.categoriaproducto ?? []).map(
-      (relacion: any) => relacion.categoria.nombrecategoria
-    ),
-
-    Imagen: registro.producto.imagen,
-
-    Precio: Number(registro.precio),
-
-    Costo: `${Number(registro.precio).toFixed(2)} $`,
-  }));
+    return {
+      id: registro.idproducto,
+      Titulo: producto?.nombreproducto ?? "",
+      Descripcion: producto?.descripcion ?? "",
+      Etiquetas: etiquetas,
+      Imagen: producto?.imagen ?? null,
+      Precio: Number(registro.precio),
+      Costo: `${Number(registro.precio).toFixed(2)} $`,
+    };
+  });
 }

@@ -1,28 +1,31 @@
-'use client'
+'use client';
 
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useState } from 'react';
-import type { Oferta } from '../../transformaciones/ofertas.tsx';
+import type { Oferta } from '../../transformaciones/ofertas';
 
 type Props = {
   ofertas: Oferta[];
 };
 
-export default function Ofertas({ ofertas }: Props) {
+export default function Destacado({ ofertas }: Props) {
   const [currentOfertaIndex, setCurrentOfertaIndex] = useState(0);
 
-  // Evita errores cuando no existen productos destacados
-  const ofertaActual = ofertas.length > 0
-    ? ofertas[currentOfertaIndex % ofertas.length]
-    : null;
+  // Obtener el producto destacado actual
+  const ofertaActual =
+    ofertas.length > 0
+      ? ofertas[currentOfertaIndex % ofertas.length]
+      : null;
 
+  // Ir al producto anterior
   const goToPreviousOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
       prevIndex === 0 ? ofertas.length - 1 : prevIndex - 1
     );
   };
 
+  // Ir al siguiente producto
   const goToNextOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
       prevIndex === ofertas.length - 1 ? 0 : prevIndex + 1
@@ -34,14 +37,13 @@ export default function Ofertas({ ofertas }: Props) {
       id="Oferta"
       className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden bg-foreground text-background"
     >
-
       <header className="w-full flex flex-col items-center mb-12 px-12">
         <motion.h2
           aria-hidden="true"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className="text-center"
         >
           Destacado
@@ -51,13 +53,12 @@ export default function Ofertas({ ofertas }: Props) {
           initial={{ opacity: 0, scaleX: 0 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
+          transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
           className="w-full h-1 bg-background mx-auto mb-12 rounded-full"
         />
       </header>
 
       <div className="relative z-10 container mx-auto">
-
         <div className="relative flex items-center justify-center w-full mx-auto">
 
           {ofertaActual ? (
@@ -85,6 +86,7 @@ export default function Ofertas({ ofertas }: Props) {
                 </svg>
               </button>
 
+              {/* Tarjeta del producto */}
               <div className="w-full max-w-5xl px-12 md:px-16">
                 <motion.div
                   key={ofertaActual.id}
