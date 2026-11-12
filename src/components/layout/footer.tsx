@@ -27,7 +27,7 @@ const socialLinks = [
 const linkSucursal = [
   { name: 'Opera Dely', href: '/OperaDely' },
   { name: 'Kamut Bakery Deli', href: '/KamutBakery' },
-  { name: 'Panadería El Fraile', href: '/ElFraile' }, 
+  { name: 'Panadería El Frailer', href: '/ElFrailer' }, 
 ]
 
 export default function Footer() {
@@ -44,7 +44,7 @@ export default function Footer() {
       { nombre: 'Destacado', ruta: '#destacado' },
       { nombre: 'Menu', ruta: '#menu' }
     ],
-    '/ElFraile': [
+    '/ElFrailer': [
       { nombre: 'Inicio', ruta: '#inicio' },
       { nombre: 'Destacado', ruta: '#destacado' },
       { nombre: 'Menu', ruta: '#menu' }

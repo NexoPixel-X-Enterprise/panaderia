@@ -17,7 +17,7 @@ export default function Header(){
   const Titulos = {
     '/OperaDely': 'Opera Dely',
     '/KamutBakery': 'Kamut Bakery Deli',
-    '/ElFraile': 'Panadería El Fraile'
+    '/ElFrailer': 'Panadería El Frailer'
   };
 
   const tituloActual = Titulos[pathname as keyof typeof Titulos] || 'Panadería NexoPixel X';
@@ -29,7 +29,7 @@ export default function Header(){
       { nombre: 'Menu', ruta: '#menu' },
       { nombre: 'Pag. Principal', ruta: '/' },
       { nombre: 'Kamut Bakery Deli', ruta: '/KamutBakery' },
-      { nombre: 'Panadería El Fraile', ruta: '/ElFraile' },
+      { nombre: 'Panadería El Frailer', ruta: '/ElFrailer' },
     ],
     '/KamutBakery': [
       { nombre: 'Inicio', ruta: '#inicio' },
@@ -37,9 +37,9 @@ export default function Header(){
       { nombre: 'Menu', ruta: '#menu' },
       { nombre: 'Pag. Principal', ruta: '/' },
       { nombre: 'Opera Dely', ruta: '/OperaDely' },
-      { nombre: 'Panadería El Fraile', ruta: '/ElFraile' },
+      { nombre: 'Panadería El Frailer', ruta: '/ElFrailer' },
     ],
-    '/ElFraile': [
+    '/ElFrailer': [
       { nombre: 'Inicio', ruta: '#inicio' },
       { nombre: 'Destacado', ruta: '#destacado' },
       { nombre: 'Menu', ruta: '#menu' },
@@ -56,7 +56,7 @@ export default function Header(){
     {nombre: 'Sucursales', ruta: '#sucursales'},
     {nombre: 'Opera Dely', ruta: '/OperaDely'},
     {nombre: 'Kamut Bakery Deli', ruta: '/KamutBakery'},
-    {nombre: 'Panadería El Fraile', ruta: '/ElFraile'},
+    {nombre: 'Panadería El Frailer', ruta: '/ElFrailer'},
 
   ];
 

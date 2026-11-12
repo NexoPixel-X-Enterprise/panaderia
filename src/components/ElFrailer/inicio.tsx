@@ -28,7 +28,7 @@ export default function Inicio() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="drop-shadow-md mb-6 "
         >
-          Panadería El Fraile <br className="hidden md:block"/>
+          Panadería El Frailer <br className="hidden md:block"/>
           Lunes a Domingo <br className="hidden md:block"/>
           6:30 am a 10:00 pm
         </motion.h1>

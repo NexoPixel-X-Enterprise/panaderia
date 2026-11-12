@@ -47,7 +47,7 @@ export default function Ofertas({ ofertas }: Props) {
 const rutasSucursales: Record<string, string> = {
   'OperaDely': '/OperaDely',
   'KamutBakery': '/KamutBakery',
-  'ElFraile': '/ElFraile',
+  'ElFrailer': '/ElFrailer',
   // Si en la DB dice "Opera Dely" con espacio, pondrías: 'Opera Dely': '/OperaDely'
 };
 

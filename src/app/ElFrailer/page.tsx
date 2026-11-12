@@ -1,6 +1,6 @@
-import Inicio from "../../components/ElFraile/inicio";
-import Destacado from "../../components/ElFraile/destacado";
-import Menu from "../../components/ElFraile/menu";
+import Inicio from "../../components/ElFrailer/inicio";
+import Destacado from "../../components/ElFrailer/destacado";
+import Menu from "../../components/ElFrailer/menu";
 
 import { createClient } from "@/supabase/server";
 import {
@@ -20,7 +20,7 @@ export default async function Home() {
   const { data: sucursal, error: errorSucursal } = await supabase
     .from("sucursales")
     .select("idsucursal, nombresucursal")
-    .eq("nombresucursal", "ElFraile")
+    .eq("nombresucursal", "ElFrailer")
     .maybeSingle();
 
   if (errorSucursal) {
@@ -179,7 +179,7 @@ export default async function Home() {
       }
     }
   } else {
-    console.error("No se encontró la sucursal ElFraile.");
+    console.error("No se encontró la sucursal ElFrailer.");
   }
 
   return (

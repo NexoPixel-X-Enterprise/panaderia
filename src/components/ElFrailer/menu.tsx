@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useState } from 'react';
 
-import type { Oferta } from '../../transformaciones/ofertas.tsx';
+import type { Oferta } from '../../transformaciones/ofertas.js';
 
 type OfertaMenu = Oferta & {
   PrecioOriginal?: number;

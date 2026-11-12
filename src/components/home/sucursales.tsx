@@ -25,10 +25,10 @@ const Sedes = [
   },
   {
     id: 2,
-    Nombre: 'Panadería El Fraile',
+    Nombre: 'Panadería El Frailer',
     Direccion: 'Avenida Sur 14, San Juan, Caracas',
     LinkMapa: 'https://maps.app.goo.gl/if1U3H5jHERw4ozcA',
-    Link: '/ElFraile',
+    Link: '/ElFrailer',
     Imagen: '/Mapa.jpg',
     Logo: '/Kamut.png',
   },
