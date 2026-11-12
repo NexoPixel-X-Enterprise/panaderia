@@ -3,6 +3,7 @@
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getImageUrl } from '../../utils/supabaseImages';
 
 const Sedes = [
   {
@@ -11,8 +12,8 @@ const Sedes = [
     Direccion: 'Avenida Paez, El Paraíso',
     LinkMapa: 'https://maps.app.goo.gl/jQPXaU6FdGoFtXNM8',
     Link: '/OperaDely',
-    Imagen: '/Mapa.jpg',
-    Logo: '/Opera.png',
+    Imagen: getImageUrl("home", "Mapa.jpg"),
+    Logo: getImageUrl("Logos", "Opera.png"),
   },
   {
     id: 1,
@@ -20,8 +21,8 @@ const Sedes = [
     Direccion: 'Avenida Sur 14, San Juan, Caracas',
     LinkMapa: 'https://maps.app.goo.gl/EPiXuxUoME8DmPEN6',
     Link: '/KamutBakery',
-    Imagen: '/Mapa.jpg',
-    Logo: '/Kamut.png',
+    Imagen: getImageUrl("home", "Mapa.jpg"),
+    Logo: getImageUrl("Logos", "Kamut.png"),
   },
   {
     id: 2,
@@ -29,12 +30,13 @@ const Sedes = [
     Direccion: 'Avenida Sur 14, San Juan, Caracas',
     LinkMapa: 'https://maps.app.goo.gl/if1U3H5jHERw4ozcA',
     Link: '/ElFrailer',
-    Imagen: '/Mapa.jpg',
-    Logo: '/Kamut.png',
+    Imagen: getImageUrl("home", "Mapa.jpg"),
+    Logo: getImageUrl("Logos", "Kamut.png"),
   },
 ];
 
 export default function Sucursales() {
+
   return (
     <section id='sucursales' className="pt-8 pb-16 md:pt-12 md:pb-18 bg-foreground">
 

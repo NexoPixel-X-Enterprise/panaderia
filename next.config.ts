@@ -9,6 +9,36 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/storage/v1/object/public/producto/**",
       },
+      {
+        protocol: "https",
+        hostname: "ahnwufslxmgrfqywuoqe.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/OperaDely/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ahnwufslxmgrfqywuoqe.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/KamutBakery/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ahnwufslxmgrfqywuoqe.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/ElFrailer/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ahnwufslxmgrfqywuoqe.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/home/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ahnwufslxmgrfqywuoqe.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/Logos/**",
+      },
     ],
   },
 };

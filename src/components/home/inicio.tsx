@@ -2,14 +2,18 @@
 
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import { getImageUrl } from '../../utils/supabaseImages';
 
 export default function Inicio() {
+
+  const imagenFondo = getImageUrl("home", "Inicio.png");
+
   return (
     <section id='inicio' className="relative w-full min-h-[115vh] flex flex-col justify-center items-center overflow-hidden text-foreground">
 
       <div className="absolute inset-0 z-0 bg-black">
         <Image 
-          src="/Inicio.png" 
+          src={imagenFondo} 
           alt="Galletas, panes y tortas" 
           fill={true}
           sizes="100vw"

@@ -2,8 +2,14 @@
 
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import { getImageUrl } from '../../utils/supabaseImages';
 
 export default function Nosotros() {
+
+  const imagen1 = getImageUrl("home", "Nosotros 1.jpg");
+  const imagen2 = getImageUrl("home", "Nosotros 2.jpg");
+  const imagen3 = getImageUrl("home", "Nosotros 3.jpg");
+  
   return (
     <section id='nosotros' className="py-16 md:py-24 bg-[#F8F4E3] text-[#1E1E1E]">
 
@@ -45,7 +51,7 @@ export default function Nosotros() {
           >
             <div className="relative w-full aspect-[4/3] md:aspect-[16/10] rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="/Nosotros 1.jpg"
+                src={imagen1}
                 alt="Pan artesanal"
                 fill={true}
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -57,7 +63,7 @@ export default function Nosotros() {
             <div className="grid grid-cols-2 gap-4">
               <div className="relative w-full aspect-square rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="/Nosotros 2.jpg"
+                  src={imagen2}
                   alt="Taza de café con latte art"
                   fill={true}
                   sizes="(max-width: 768px) 50vw, 25vw"
@@ -67,7 +73,7 @@ export default function Nosotros() {
 
               <div className="relative w-full aspect-square rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="/Nosotros 3.jpg"
+                  src={imagen3}
                   alt="Postre dulce bañado en caramelo"
                   fill={true}
                   sizes="(max-width: 768px) 50vw, 25vw"

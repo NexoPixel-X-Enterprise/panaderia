@@ -8,6 +8,7 @@ import {
   transformarOfertas,
   type Oferta,
 } from "../../transformaciones/ofertas";
+import { getImageUrl } from '../../utils/supabaseImages';
 
 type OfertaPromocion = {
   id: number;
@@ -44,19 +45,21 @@ export default function Ofertas({ ofertas }: Props) {
   ];
 
   // Diccionario para areglar las rutas de la BD con los nombres de las carpetas de las sucursales
-const rutasSucursales: Record<string, string> = {
-  'OperaDely': '/OperaDely',
-  'KamutBakery': '/KamutBakery',
-  'ElFrailer': '/ElFrailer',
-  // Si en la DB dice "Opera Dely" con espacio, pondrías: 'Opera Dely': '/OperaDely'
-};
+  const rutasSucursales: Record<string, string> = {
+    'OperaDely': '/OperaDely',
+    'KamutBakery': '/KamutBakery',
+    'ElFrailer': '/ElFrailer',
+    // Si en la DB dice "Opera Dely" con espacio, pondrías: 'Opera Dely': '/OperaDely'
+  };
+
+  const imagenFondo = getImageUrl("home", "Ofertas.png");
 
   return (
     <section id='ofertas' className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden text-foreground">
       
       <div className="absolute inset-0 z-0">
         <Image 
-          src="/Ofertas.png"
+          src={imagenFondo}
           alt="Fondo de sección Oferta" 
           fill={true}
           sizes="100vw"
