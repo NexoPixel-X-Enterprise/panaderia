@@ -10,20 +10,13 @@ import {
 } from "../../transformaciones/ofertas";
 import { cookies } from "next/headers";
 
-type OfertaMenu = Oferta & {
-  PrecioOriginal?: number;
-};
-
-type OfertaDestacada = Oferta & {
-  PrecioOriginal?: number;
-};
 
 export default async function Home() {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
 
-  let ofertas: OfertaMenu[] = [];
-  let ofertasDestacadas: OfertaDestacada[] = [];
+  let ofertas: Oferta[] = [];
+  let ofertasDestacadas: Oferta[] = [];
 
   // Buscar la sucursal KamutBakery
   const { data: sucursal, error: errorSucursal } = await supabase
@@ -37,8 +30,9 @@ export default async function Home() {
   }
 
   if (sucursal) {
-
-    // Obtener el inventario para el menú
+    // ----------------------------------------------------
+    // OBTENER EL INVENTARIO PARA EL MENÚ
+    // ----------------------------------------------------
     const { data: inventario, error: errorInventario } = await supabase
       .from("inventario")
       .select(`
@@ -63,74 +57,51 @@ export default async function Home() {
     if (errorInventario) {
       console.error("Error al consultar el inventario:", errorInventario);
     } else {
-
       const listaInventario = inventario ?? [];
 
       if (listaInventario.length > 0) {
-
         // Consultar las promociones vigentes de todos los productos
-        const idsProductos = listaInventario.map(
-          (registro: any) => registro.idproducto
-        );
-
+        const idsProductos = listaInventario.map((registro: any) => registro.idproducto);
         const ahora = new Date().toISOString();
 
-        const { data: promociones, error: errorPromociones } =
-          await supabase
-            .from("promocion")
-            .select("idproducto, idsucursal, preciofinal")
-            .eq("idsucursal", sucursal.idsucursal)
-            .in("idproducto", idsProductos)
-            .eq("estaactiva", true)
-            .lte("fechainicio", ahora)
-            .or(`fechafin.is.null,fechafin.gt.${ahora}`);
+        const { data: promociones, error: errorPromociones } = await supabase
+          .from("promocion")
+          .select("idproducto, idsucursal, preciofinal")
+          .eq("idsucursal", sucursal.idsucursal)
+          .in("idproducto", idsProductos)
+          .eq("estaactiva", true)
+          .lte("fechainicio", ahora)
+          .or(`fechafin.is.null,fechafin.gt.${ahora}`);
 
         if (errorPromociones) {
-          console.error(
-            "Error al consultar las promociones del menú:",
-            errorPromociones
-          );
+          console.error("Error al consultar las promociones del menú:", errorPromociones);
         }
 
-        // Asociar cada producto con su promoción, si existe
-        const inventarioConPromocion = listaInventario.map(
-          (registro: any) => {
+        // Asociar cada producto con su promoción
+        const inventarioConPromocion = listaInventario.map((registro: any) => {
+          const promocion = (promociones ?? []).find(
+            (promo: any) =>
+              promo.idproducto === registro.idproducto &&
+              promo.idsucursal === registro.idsucursal
+          );
 
-            const promocion = (promociones ?? []).find(
-              (promo: any) =>
-                promo.idproducto === registro.idproducto &&
-                promo.idsucursal === registro.idsucursal
-            );
+          if (!promocion) return registro;
 
-            if (!promocion) {
-              return registro;
-            }
+          return {
+            ...registro,
+            precioOriginal: Number(registro.precio),
+            precio: Number(promocion.preciofinal),
+          };
+        });
 
-            return {
-              ...registro,
-              precioOriginal: Number(registro.precio),
-              precio: Number(promocion.preciofinal),
-            };
-          }
-        );
-
-        // Transformar los productos conservando ambos precios
-        ofertas = transformarOfertas(
-          inventarioConPromocion
-        ).map((oferta: Oferta, indice: number) => ({
-          ...oferta,
-          PrecioOriginal:
-            inventarioConPromocion[indice].precioOriginal !== undefined
-              ? Number(inventarioConPromocion[indice].precioOriginal)
-              : undefined,
-        }));
-
+        // La transformación detecta automáticamente el precioOriginal
+        ofertas = transformarOfertas(inventarioConPromocion);
       } else {
         ofertas = transformarOfertas(listaInventario);
       }
     }
-
-    // Obtener los productos destacados
+    
+    // OBTENER LOS PRODUCTOS DESTACADOS
     const { data: destacados, error: errorDestacados } = await supabase
       .from("inventario")
       .select(`
@@ -158,73 +129,49 @@ export default async function Home() {
     if (errorDestacados) {
       console.error("Error al consultar los destacados:", errorDestacados);
     } else {
-
       const listaDestacados = destacados ?? [];
 
       if (listaDestacados.length > 0) {
-
         // Consultar las promociones de los productos destacados
-        const idsProductosDestacados = listaDestacados.map(
-          (registro: any) => registro.idproducto
-        );
-
+        const idsProductosDestacados = listaDestacados.map((registro: any) => registro.idproducto);
         const ahora = new Date().toISOString();
 
-        const { data: promociones, error: errorPromociones } =
-          await supabase
-            .from("promocion")
-            .select("idproducto, idsucursal, preciofinal")
-            .eq("idsucursal", sucursal.idsucursal)
-            .in("idproducto", idsProductosDestacados)
-            .eq("estaactiva", true)
-            .lte("fechainicio", ahora)
-            .or(`fechafin.is.null,fechafin.gt.${ahora}`);
+        const { data: promociones, error: errorPromociones } = await supabase
+          .from("promocion")
+          .select("idproducto, idsucursal, preciofinal")
+          .eq("idsucursal", sucursal.idsucursal)
+          .in("idproducto", idsProductosDestacados)
+          .eq("estaactiva", true)
+          .lte("fechainicio", ahora)
+          .or(`fechafin.is.null,fechafin.gt.${ahora}`);
 
         if (errorPromociones) {
-          console.error(
-            "Error al consultar las promociones de los destacados:",
-            errorPromociones
-          );
+          console.error("Error al consultar las promociones de los destacados:", errorPromociones);
         }
 
-        // Asociar cada destacado con su promoción, si existe
-        const destacadosConPromocion = listaDestacados.map(
-          (registro: any) => {
+        // Asociar cada destacado con su promoción
+        const destacadosConPromocion = listaDestacados.map((registro: any) => {
+          const promocion = (promociones ?? []).find(
+            (promo: any) =>
+              promo.idproducto === registro.idproducto &&
+              promo.idsucursal === registro.idsucursal
+          );
 
-            const promocion = (promociones ?? []).find(
-              (promo: any) =>
-                promo.idproducto === registro.idproducto &&
-                promo.idsucursal === registro.idsucursal
-            );
+          if (!promocion) return registro;
 
-            if (!promocion) {
-              return registro;
-            }
+          return {
+            ...registro,
+            precioOriginal: Number(registro.precio),
+            precio: Number(promocion.preciofinal),
+          };
+        });
 
-            return {
-              ...registro,
-              precioOriginal: Number(registro.precio),
-              precio: Number(promocion.preciofinal),
-            };
-          }
-        );
-
-        // Transformar los destacados conservando ambos precios
-        ofertasDestacadas = transformarOfertas(
-          destacadosConPromocion
-        ).map((oferta: Oferta, indice: number) => ({
-          ...oferta,
-          PrecioOriginal:
-            destacadosConPromocion[indice].precioOriginal !== undefined
-              ? Number(destacadosConPromocion[indice].precioOriginal)
-              : undefined,
-        }));
-
+        // Transformación directa
+        ofertasDestacadas = transformarOfertas(destacadosConPromocion);
       } else {
         ofertasDestacadas = transformarOfertas(listaDestacados);
       }
     }
-
   } else {
     console.error("No se encontró la sucursal KamutBakery.");
   }

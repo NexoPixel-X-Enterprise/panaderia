@@ -7,6 +7,7 @@ export type Oferta = {
   Imagen: string | null;
   Precio: number;
   Costo: string;
+  PrecioOriginal?: number;
 };
 
 export function transformarOfertas(datos: any[]): Oferta[] {
@@ -33,6 +34,10 @@ export function transformarOfertas(datos: any[]): Oferta[] {
       Imagen: producto?.imagen ?? null,
       Precio: Number(registro.precio),
       Costo: `${Number(registro.precio).toFixed(2)} $`,
+      // Extraemos el precioOriginal si existe en el registro
+      PrecioOriginal: registro.precioOriginal !== undefined 
+        ? Number(registro.precioOriginal) 
+        : undefined,
     };
   });
 }
