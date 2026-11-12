@@ -4,59 +4,38 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useState } from 'react';
 
-const Oferta = [
-  {
-    id: 1,
-    Titulo: 'Pizza Familiar',
-    Descripcion: 'Pizza deliciosa para toda la familia',
-    Etiquetas: ['Almuerzo', 'Pizza'],
-    Imagen: '/Ofertas1.png',
-    Costo: '3.50 $',
-  },
-  {
-    id: 2,
-    Titulo: 'Profiterol',
-    Descripcion: 'Delicioso profiterol cubierto de chocolate',
-    Etiquetas: ['Dulce', 'Reposteria'],
-    Imagen: '/Ofertas2.png',
-    Costo: '3.50 $',
-  },
-  {
-    id: 3,
-    Titulo: 'Pizza Familiar',
-    Descripcion: 'Pizza deliciosa para toda la familia',
-    Etiquetas: ['Almuerzo', 'Pizza'],
-    Imagen: '/Ofertas1.png',
-    Costo: '3.50 $',
-  },
-  {
-    id: 4,
-    Titulo: 'Profiterol',
-    Descripcion: 'Delicioso profiterol cubierto de chocolate',
-    Etiquetas: ['Dulce', 'Reposteria'],
-    Imagen: '/Ofertas2.png',
-    Costo: '3.50 $',
-  }
-];
+type OfertaPromocion = {
+  id: number;
+  Titulo: string;
+  Descripcion: string;
+  Etiquetas: string[];
+  Imagen: string;
+  Precio: number;
+  PrecioOriginal: number;
+  Sucursal: string;
+};
 
-export default function Ofertas() {
+type Props = {
+  ofertas: OfertaPromocion[];
+};
+export default function Ofertas({ ofertas }: Props) {
   const [currentOfertaIndex, setCurrentOfertaIndex] = useState(0);
 
   const goToPreviousOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
-      prevIndex === 0 ? Oferta.length - 1 : prevIndex - 1
+      prevIndex === 0 ? ofertas.length - 1 : prevIndex - 1
     );
   };
 
   const goToNextOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
-      prevIndex === Oferta.length - 1 ? 0 : prevIndex + 1
+      prevIndex === ofertas.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const visibleOferta = [
-    Oferta[currentOfertaIndex],
-    Oferta[(currentOfertaIndex + 1) % Oferta.length]
+    ofertas[currentOfertaIndex],
+    ofertas[(currentOfertaIndex + 1) % ofertas.length]
   ];
 
   return (
@@ -126,13 +105,24 @@ export default function Ofertas() {
 
                 <div className="flex justify-between items-end mb-2">
                   <h3 className="m-0 leading-none">{Oferta.Titulo}</h3>
-                  <span className="text-xl font-bold font-Titulo">{Oferta.Costo}</span>
+                  <span className="text-xl font-bold font-Titulo">{Oferta.Precio.toFixed(2)} $</span>
                 </div>
                 
-                <hr className="w-full border-t border-background opacity-20 mb-5" />
+               <hr className="w-full border-t border-background opacity-20 mb-3" />
+
+                {/* Sucursal a la que pertenece la promoción */}
+                <div className="flex items-center gap-2 mb-5">
+                  <span className="text-sm font-Titulo font-bold text-[#CDA592]">
+                    Sucursal:
+                  </span>
+
+                  <span className="text-sm font-medium">
+                    {Oferta.Sucursal}
+                  </span>
+                </div>
 
                 <div className="flex flex-row gap-6 mb-6 flex-grow">
-                  
+                                  
                   <div className="w-1/2 flex flex-col">
                     <span className="text-sm font-Titulo font-bold mb-2">Descripción</span>
                     <p className="m-0 text-xs opacity-80 leading-relaxed text-balance">
