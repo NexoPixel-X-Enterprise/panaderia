@@ -9,7 +9,7 @@ export default function Inicio() {
 
       <div className="absolute inset-0 z-0 bg-black">
         <Image 
-          src="/ElFraile/Inicio.png" 
+          src="/ElFrailer/Inicio.png" 
           alt="Galletas, panes y tortas" 
           fill={true}
           sizes="100vw"
