@@ -3,6 +3,11 @@
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useState } from 'react';
+import Link from 'next/link';
+import {
+  transformarOfertas,
+  type Oferta,
+} from "../../transformaciones/ofertas";
 
 type OfertaPromocion = {
   id: number;
@@ -37,6 +42,14 @@ export default function Ofertas({ ofertas }: Props) {
     ofertas[currentOfertaIndex],
     ofertas[(currentOfertaIndex + 1) % ofertas.length]
   ];
+
+  // Diccionario para areglar las rutas de la BD con los nombres de las carpetas de las sucursales
+const rutasSucursales: Record<string, string> = {
+  'OperaDely': '/OperaDely',
+  'KamutBakery': '/KamutBakery',
+  'ElFraile': '/ElFraile',
+  // Si en la DB dice "Opera Dely" con espacio, pondrías: 'Opera Dely': '/OperaDely'
+};
 
   return (
     <section id='ofertas' className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden text-foreground">
@@ -90,22 +103,42 @@ export default function Ofertas({ ofertas }: Props) {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
-                className={`bg-foreground text-background rounded-sm p-5 shadow-2xl flex-col h-full ${index === 1 ? 'hidden md:flex' : 'flex'}`}
+                className={`bg-foreground text-background rounded-sm p-5 shadow-2xl flex-col min-w-0 h-full ${index === 1 ? 'hidden md:flex' : 'flex'}`}
               >
                 
                 <div className="relative w-full h-48 md:h-56 rounded-sm overflow-hidden mb-4 border border-gray-200">
-                  <Image
-                    src={Oferta.Imagen}
-                    alt={Oferta.Titulo}
-                    fill={true}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                  />
+                  
+                  {Oferta.Imagen ? (
+                    <Image
+                      src={Oferta.Imagen}
+                      alt={Oferta.Titulo}
+                      fill={true}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  ) : (
+
+                    <div className="w-full h-full flex items-center justify-center bg-gray-300 text-gray-700">
+                      Imagen no disponible
+                    </div>
+
+                  )}
                 </div>
 
-                <div className="flex justify-between items-end mb-2">
-                  <h3 className="m-0 leading-none">{Oferta.Titulo}</h3>
-                  <span className="text-xl font-bold font-Titulo">{Oferta.Precio.toFixed(2)} $</span>
+                <div className="flex justify-between items-start mb-2 gap-4">
+                  <h3 className="m-0 leading-tight flex-grow">{Oferta.Titulo}</h3>
+                  
+                  <div className="flex flex-col items-end flex-shrink-0">
+                    {/* Solo muestra el precio original tachado si es mayor que el precio de oferta */}
+                    {Oferta.PrecioOriginal && Oferta.PrecioOriginal > Oferta.Precio && (
+                      <span className="text-sm font-Titulo text-red-500 line-through mb-[-4px]">
+                        {Oferta.PrecioOriginal.toFixed(2)} $
+                      </span>
+                    )}
+                    <span className="text-xl font-bold font-Titulo text-green-500">
+                      {Oferta.Precio.toFixed(2)} $
+                    </span>
+                  </div>
                 </div>
                 
                <hr className="w-full border-t border-background opacity-20 mb-3" />
@@ -116,16 +149,19 @@ export default function Ofertas({ ofertas }: Props) {
                     Sucursal:
                   </span>
 
-                  <span className="text-sm font-medium">
+                  <Link 
+                    href={rutasSucursales[Oferta.Sucursal] || '/'} 
+                    className="text-sm font-medium hover:text-[#CDA592] hover:underline transition-colors cursor-pointer"
+                  >
                     {Oferta.Sucursal}
-                  </span>
+                  </Link>
                 </div>
 
                 <div className="flex flex-row gap-6 mb-6 flex-grow">
                                   
                   <div className="w-1/2 flex flex-col">
                     <span className="text-sm font-Titulo font-bold mb-2">Descripción</span>
-                    <p className="m-0 text-xs opacity-80 leading-relaxed text-balance">
+                    <p className="m-0 text-xs opacity-80 leading-relaxed min-w-0 whitespace-normal break-words [overflow-wrap:anywhere]cvm,.zx">
                       {Oferta.Descripcion}
                     </p>
                   </div>
@@ -134,7 +170,7 @@ export default function Ofertas({ ofertas }: Props) {
                     <span className="text-sm font-Titulo font-bold mb-2">Etiquetas</span>
                     <div className="flex flex-wrap gap-2">
                       {Oferta.Etiquetas.map((tag, i) => (
-                        <span key={i} className="bg-[#CDA592] text-background text-[10px] px-3 py-1 rounded-full font-bold">
+                        <span key={i} className="bg-[#CDA592] text-background text-[10px] px-3 py-1 rounded-full font-bold min-w-0">
                           {tag}
                         </span>
                       ))}
