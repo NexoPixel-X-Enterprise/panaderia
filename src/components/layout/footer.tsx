@@ -1,8 +1,8 @@
 'use client'
 
 import { motion } from 'motion/react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import SectionLink from './section-link';
 
 {/*Componentes svg para los iconos*/}
 const InstagramIcon = () => (
@@ -82,14 +82,14 @@ export default function Footer() {
             <nav className="flex flex-col gap-2">
               {/*Panel de navegación izquierdo -> esto remplaza la versión anterior*/}
               {linkActuales.map((enlace) => (
-                <Link 
+                <SectionLink
                   key={enlace.ruta} 
                   href={enlace.ruta}
                   className="group relative w-max mx-auto md:mx-0 hover:text-[#CDA592] transition-colors"
                 >
                   {enlace.nombre}
                   <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Link>
+                </SectionLink>
               ))}
             </nav>
           </aside>
@@ -98,14 +98,14 @@ export default function Footer() {
             <h3>Sucursales</h3>
             <nav className="flex flex-col gap-2 pt-2">
               {linkSucursal.map((link) => (
-                <Link 
+                <SectionLink
                   key={link.name} 
                   href={link.href} 
                   className="group relative w-max mx-auto md:mx-0 hover:text-[#CDA592] transition-colors"
                 >
                   {link.name}
                   <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Link>
+                </SectionLink>
               ))}
             </nav>
           </main>
@@ -128,14 +128,14 @@ export default function Footer() {
             </div>
             <div className="flex justify-center md:justify-start space-x-4 pt-2 mt-6 mb-3 md:mt-8 md:mb-4">
               {linkDeInicio.map((enlace) => (
-                <Link 
+                <SectionLink
                   key={enlace.ruta} 
                   href={enlace.ruta}
                   className="group relative w-max mx-auto md:mx-0 hover:text-[#CDA592] transition-colors"
                 >
                   <h3>{enlace.nombre}</h3>
                   <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Link>
+                </SectionLink>
               ))}
             </div>
           </aside>

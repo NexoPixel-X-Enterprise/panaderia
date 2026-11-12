@@ -2,8 +2,8 @@
 
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/16/solid";
 import { useState } from "react";
-import Link from "next/link";
 import { usePathname } from 'next/navigation';
+import SectionLink from './section-link';
 
 export default function Header(){
 
@@ -65,23 +65,23 @@ export default function Header(){
       <div className="flex flex-col items-center relative z-50 max-w-[1400px] mx-auto px-4 w-full">
         
         {/* Titulo */}
-        <Link href="#inicio" className="hover:opacity-80 transition-opacity">
+        <SectionLink href="#inicio" className="hover:opacity-80 transition-opacity">
           <h1 className="text-[#F8F4E3] text-3xl mb-4"> {tituloActual} </h1>
-        </Link>
+        </SectionLink>
 
         <div className="w-full h-[3px] bg-[#CDA592] opacity-70 mb-4" />
         
         {/* MENÚ ESCRITORIO */}
         <nav className="hidden [@media(min-width:900px)]:flex gap-8 text-sm font-normal font-title text-[#F8F4E3] mb-4">
           {linkActuales.map((enlace) => (
-            <Link 
+            <SectionLink
               key={enlace.nombre} 
               href={enlace.ruta} 
               className="group relative hover:text-[#CDA592] transition-colors"
             >
               {enlace.nombre}
               <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#CDA592] opacity-0 group-hover:opacity-100 transition-opacity" />
-            </Link>
+            </SectionLink>
           ))}
         </nav>
 
@@ -127,7 +127,7 @@ export default function Header(){
 
           <nav className="flex flex-col gap-6 text-lg font-medium font-title text-[#d5d5d5]">
             {linkActuales.map((enlace) => (
-              <Link 
+              <SectionLink
                 key={enlace.nombre} 
                 href={enlace.ruta} 
                 aria-label={enlace.nombre} 
@@ -135,7 +135,7 @@ export default function Header(){
                 className="hover:text-[#ac19e5] transition-colors"
               >
                 {enlace.nombre}
-              </Link>
+              </SectionLink>
             ))}
           </nav>
         </div>
