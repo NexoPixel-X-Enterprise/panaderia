@@ -5,18 +5,20 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import type { Oferta } from '../../transformaciones/ofertas.tsx';
-type Props = {
-  ofertas: Oferta[];
+
+type OfertaMenu = Oferta & {
+  PrecioOriginal?: number;
 };
 
+type Props = {
+  ofertas: OfertaMenu[];
+};
 export default function Menu({ ofertas }: Props) {
-
 
   const [busqueda, setBusqueda] = useState('');
   const [orden, setOrden] = useState('');
   const [etiquetaActiva, setEtiquetaActiva] = useState('Todos');
 
- 
   const todasLasEtiquetas = [
     'Todos',
     ...Array.from(
@@ -42,7 +44,6 @@ export default function Menu({ ofertas }: Props) {
       if (orden === 'precio-asc') {
         return a.Precio - b.Precio;
       }
-
 
       if (orden === 'precio-desc') {
         return b.Precio - a.Precio;
@@ -85,7 +86,6 @@ export default function Menu({ ofertas }: Props) {
 
         <div className="w-full max-w-6xl mx-auto px-12 md:px-8 mb-12 flex flex-col gap-6 z-20">
 
-        
           <div className="flex flex-col md:flex-row gap-4 w-full">
 
             <input
@@ -96,7 +96,6 @@ export default function Menu({ ofertas }: Props) {
               className="w-full md:w-2/3 bg-foreground text-background border-2 border-[#CDA592] rounded-xl px-6 py-3 outline-none focus:ring-2 focus:ring-[#CDA592]/50 transition-all placeholder:text-background/50"
             />
 
-  
             <div className="relative w-full md:w-1/3">
 
               <select
@@ -117,7 +116,6 @@ export default function Menu({ ofertas }: Props) {
             </div>
           </div>
 
-      
           <div className="flex flex-wrap gap-3 mt-2">
 
             {todasLasEtiquetas.map((etiqueta) => (
@@ -140,7 +138,7 @@ export default function Menu({ ofertas }: Props) {
         </div>
       </header>
 
-      {/* PASO 5.6: Mostrar los productos */}
+      {/* Mostrar los productos */}
       <div className="relative z-10 container mx-auto">
 
         {ofertasFiltradas.length === 0 ? (
@@ -153,7 +151,7 @@ export default function Menu({ ofertas }: Props) {
 
         ) : (
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 w-full max-w-6xl mx-auto px-12 md:px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 w-full max-w-6xl mx-auto px-12 md:px-4">
 
             {ofertasFiltradas.map((oferta) => (
 
@@ -163,7 +161,7 @@ export default function Menu({ ofertas }: Props) {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4 }}
-                className="bg-foreground text-background rounded-sm p-5 shadow-2xl flex flex-col h-full"
+                className="bg-foreground text-background rounded-sm p-5 shadow-2xl flex flex-col min-w-0 h-full"
               >
 
                 {/* Imagen del producto */}
@@ -190,44 +188,58 @@ export default function Menu({ ofertas }: Props) {
                 </div>
 
                 {/* Nombre y precio */}
-                <div className="flex justify-between items-end mb-2 gap-4">
+                <div className="flex justify-between items-end mb-2 gap-4 min-w-0">
 
-                  <h3 className="m-0 leading-none">
+                  <h3 className="m-0 leading-none min-w-0 break-words [overflow-wrap:anywhere]">
                     {oferta.Titulo}
                   </h3>
 
-                  <span className="text-xl font-bold font-Titulo whitespace-nowrap">
-                    {oferta.Costo}
-                  </span>
+                  <div className="flex flex-wrap items-center justify-end gap-2 min-w-0">
+
+                  {oferta.PrecioOriginal !== undefined ? (
+                                                          <>
+                  <span className="text-red-500 line-through text-sm md:text-base font-semibold whitespace-nowrap">
+                     {oferta.PrecioOriginal.toFixed(2)} $
+                              </span>
+
+                            <span className="text-green-500 text-xl font-bold whitespace-nowrap">
+                                  {oferta.Precio.toFixed(2)} $
+                                    </span>
+                                      </>
+                                                      ) : (
+                                      <span className="text-xl font-bold font-Titulo whitespace-nowrap">
+                                      {oferta.Costo}
+                                        </span>)}
+                                                    </div>
 
                 </div>
 
                 <hr className="w-full border-t border-background opacity-20 mb-5" />
 
                 {/* Descripción y etiquetas */}
-                <div className="flex flex-row gap-6 mb-6 flex-grow">
+                <div className="flex flex-row gap-6 mb-6 flex-grow min-w-0">
 
                   {/* Descripción */}
-                  <div className="w-1/2 flex flex-col">
+                  <div className="w-1/2 flex flex-col min-w-0">
 
                     <span className="text-sm font-Titulo font-bold mb-2">
                       Descripción
                     </span>
 
-                    <p className="m-0 text-xs opacity-80 leading-relaxed text-balance">
-                      {oferta.Descripcion}
-                    </p>
+             <p className="m-0 min-w-0 w-full text-xs opacity-80 leading-relaxed whitespace-normal [overflow-wrap:anywhere] [word-break:break-word]">
+                  {oferta.Descripcion}
+            </p>
 
                   </div>
 
                   {/* Categorías del producto */}
-                  <div className="w-1/2 flex flex-col">
+                  <div className="w-1/2 min-w-0 flex flex-col">
 
                     <span className="text-sm font-Titulo font-bold mb-2">
                       Etiquetas
                     </span>
 
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 min-w-0">
 
                       {oferta.Etiquetas.map((tag, i) => (
 

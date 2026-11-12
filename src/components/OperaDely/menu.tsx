@@ -6,8 +6,12 @@ import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import type { Oferta } from '../../transformaciones/ofertas';
 
+type OfertaMenu = Oferta & {
+  PrecioOriginal?: number;
+};
+
 type Props = {
-  ofertas: Oferta[];
+  ofertas: OfertaMenu[];
 };
 
 export default function Menu({ ofertas }: Props) {
@@ -137,14 +141,14 @@ export default function Menu({ ofertas }: Props) {
       {/* Productos */}
       <div className="relative z-10 container mx-auto">
         {ofertasFiltradas.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-24 w-full max-w-6xl mx-auto px-12 md:px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 w-full max-w-6xl mx-auto px-12 md:px-4">
             {ofertasFiltradas.map((oferta) => (
               <motion.div
                 key={oferta.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
-                className="bg-foreground text-background rounded-sm p-5 shadow-2xl flex flex-col h-full"
+                className="bg-foreground text-background rounded-sm p-5 shadow-2xl flex flex-col min-w-0 h-full"
               >
                 {/* Imagen del producto */}
                 <div className="relative w-full h-48 md:h-56 rounded-sm overflow-hidden mb-4 border border-gray-200">
@@ -165,33 +169,52 @@ export default function Menu({ ofertas }: Props) {
                   )}
                 </div>
 
-                {/* Título y precio */}
-                <div className="flex justify-between items-end mb-2 gap-3">
-                  <h3 className="m-0 leading-none">
-                    {oferta.Titulo}
-                  </h3>
+               {/* Título y precio */}
+              <div className="flex justify-between items-end mb-2 gap-3 min-w-0">
+                <h3 className="m-0 leading-none min-w-0 break-words [overflow-wrap:anywhere]">
+                         {oferta.Titulo}
+                      </h3>
 
-                  <span className="text-xl font-bold font-Titulo whitespace-nowrap">
-                    {oferta.Costo}
-                  </span>
-                </div>
+  {/* Mostrar precio normal o precio promocional */}
+  <div className="flex flex-wrap items-center justify-end gap-2 min-w-0">
+    {oferta.PrecioOriginal !== undefined ? (
+      <>
+        {/* Precio original tachado */}
+        <span className="text-red-500 line-through text-sm md:text-base font-semibold whitespace-nowrap">
+          {oferta.PrecioOriginal.toFixed(2)} $
+        </span>
 
+        {/* Precio con descuento */}
+        <span className="text-green-500 text-xl font-bold font-Titulo whitespace-nowrap">
+          {oferta.Precio.toFixed(2)} $
+        </span>
+      </>
+    ) : (
+      /* Precio normal */
+      <span className="text-xl font-bold font-Titulo whitespace-nowrap">
+        {oferta.Costo}
+      </span>
+    )}
+  </div>
+</div>
                 <hr className="w-full border-t border-background opacity-20 mb-5" />
 
                 {/* Descripción y etiquetas */}
-                <div className="flex flex-row gap-6 mb-6 flex-grow">
+                <div className="flex flex-row gap-6 mb-6 flex-grow min-w-0">
 
-                  <div className="w-1/2 flex flex-col">
+                  {/* Descripción */}
+                  <div className="w-1/2 min-w-0 flex flex-col">
                     <span className="text-sm font-Titulo font-bold mb-2">
                       Descripción
                     </span>
 
-                    <p className="m-0 text-xs opacity-80 leading-relaxed text-balance">
+                    <p className="m-0 min-w-0 text-xs opacity-80 leading-relaxed whitespace-normal break-words [overflow-wrap:anywhere]">
                       {oferta.Descripcion}
                     </p>
                   </div>
 
-                  <div className="w-1/2 flex flex-col">
+                  {/* Etiquetas */}
+                  <div className="w-1/2 min-w-0 flex flex-col">
                     <span className="text-sm font-Titulo font-bold mb-2">
                       Etiquetas
                     </span>

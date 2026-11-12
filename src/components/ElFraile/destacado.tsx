@@ -1,21 +1,26 @@
-'use client'
+'use client';
 
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useState } from 'react';
-import type { Oferta } from '../../transformaciones/ofertas.tsx';
+import type { Oferta } from '../../transformaciones/ofertas';
+
+type OfertaDestacada = Oferta & {
+  PrecioOriginal?: number;
+};
 
 type Props = {
-  ofertas: Oferta[];
+  ofertas: OfertaDestacada[];
 };
 
 export default function Ofertas({ ofertas }: Props) {
   const [currentOfertaIndex, setCurrentOfertaIndex] = useState(0);
 
   // Evita errores cuando no existen productos destacados
-  const ofertaActual = ofertas.length > 0
-    ? ofertas[currentOfertaIndex % ofertas.length]
-    : null;
+  const ofertaActual =
+    ofertas.length > 0
+      ? ofertas[currentOfertaIndex % ofertas.length]
+      : null;
 
   const goToPreviousOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
@@ -34,7 +39,6 @@ export default function Ofertas({ ofertas }: Props) {
       id="destacado"
       className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden bg-foreground text-background"
     >
-
       <header className="w-full flex flex-col items-center mb-12 px-12">
         <motion.h2
           aria-hidden="true"
@@ -57,9 +61,7 @@ export default function Ofertas({ ofertas }: Props) {
       </header>
 
       <div className="relative z-10 container mx-auto">
-
         <div className="relative flex items-center justify-center w-full mx-auto">
-
           {ofertaActual ? (
             <>
               {/* Botón anterior */}
@@ -91,9 +93,8 @@ export default function Ofertas({ ofertas }: Props) {
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4 }}
-                  className="bg-foreground text-background rounded-lg shadow-2xl flex flex-col md:flex-row w-full min-h-[450px] overflow-hidden"
+                  className="bg-foreground text-background rounded-lg shadow-2xl flex flex-col md:flex-row w-full min-h-[450px] overflow-hidden min-w-0"
                 >
-
                   {/* Imagen del producto */}
                   <div className="relative w-full md:w-1/2 h-64 md:h-auto min-h-[256px] flex-shrink-0">
                     {ofertaActual.Imagen ? (
@@ -114,13 +115,12 @@ export default function Ofertas({ ofertas }: Props) {
                   </div>
 
                   {/* Información del producto */}
-                  <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-between">
-
-                    <h3 className="m-0 mb-4 text-2xl md:text-3xl font-title">
+                  <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-between min-w-0">
+                    <h3 className="m-0 mb-4 text-2xl md:text-3xl font-title min-w-0 break-words [overflow-wrap:anywhere]">
                       {ofertaActual.Titulo}
                     </h3>
 
-                    <p className="m-0 text-sm opacity-80 leading-relaxed mb-6 flex-grow text-justify">
+                    <p className="m-0 min-w-0 text-sm opacity-80 leading-relaxed mb-6 flex-grow text-left whitespace-normal break-words [overflow-wrap:anywhere]">
                       {ofertaActual.Descripcion}
                     </p>
 
@@ -138,15 +138,28 @@ export default function Ofertas({ ofertas }: Props) {
                       ))}
                     </div>
 
-                    {/* Precio */}
-                    <h3 className="text-xl font-bold font-title text-center">
-                      {ofertaActual.Costo}
-                    </h3>
+                    {/* Precios */}
+                    <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+                      {ofertaActual.PrecioOriginal !== undefined ? (
+                        <>
+                          <span className="text-red-500 line-through text-lg font-semibold">
+                            {ofertaActual.PrecioOriginal.toFixed(2)} $
+                          </span>
+
+                          <span className="text-green-500 font-bold text-2xl">
+                            {ofertaActual.Precio.toFixed(2)} $
+                          </span>
+                        </>
+                      ) : (
+                        <span className="font-bold text-2xl">
+                          {ofertaActual.Costo}
+                        </span>
+                      )}
+                    </div>
 
                     <button className="w-full bg-background text-foreground py-4 text-sm tracking-[0.2em] font-bold hover:bg-[#CDA592] transition-colors rounded-sm">
                       COMPRAR
                     </button>
-
                   </div>
                 </motion.div>
               </div>
@@ -181,7 +194,6 @@ export default function Ofertas({ ofertas }: Props) {
               </p>
             </div>
           )}
-
         </div>
       </div>
     </section>

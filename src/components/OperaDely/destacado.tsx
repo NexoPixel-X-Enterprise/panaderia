@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'motion/react';
@@ -5,27 +6,29 @@ import Image from 'next/image';
 import { useState } from 'react';
 import type { Oferta } from '../../transformaciones/ofertas';
 
-type Props = {
-  ofertas: Oferta[];
+type OfertaDestacada = Oferta & {
+  PrecioOriginal?: number;
 };
 
-export default function Destacado({ ofertas }: Props) {
+type Props = {
+  ofertas: OfertaDestacada[];
+};
+
+export default function Ofertas({ ofertas }: Props) {
   const [currentOfertaIndex, setCurrentOfertaIndex] = useState(0);
 
-  // Obtener el producto destacado actual
+  // Evita errores cuando no existen productos destacados
   const ofertaActual =
     ofertas.length > 0
       ? ofertas[currentOfertaIndex % ofertas.length]
       : null;
 
-  // Ir al producto anterior
   const goToPreviousOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
       prevIndex === 0 ? ofertas.length - 1 : prevIndex - 1
     );
   };
 
-  // Ir al siguiente producto
   const goToNextOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
       prevIndex === ofertas.length - 1 ? 0 : prevIndex + 1
@@ -34,7 +37,7 @@ export default function Destacado({ ofertas }: Props) {
 
   return (
     <section
-      id="destacado"
+      id="Oferta"
       className="relative w-full py-20 md:py-32 flex flex-col items-center overflow-hidden bg-foreground text-background"
     >
       <header className="w-full flex flex-col items-center mb-12 px-12">
@@ -43,7 +46,7 @@ export default function Destacado({ ofertas }: Props) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center"
         >
           Destacado
@@ -53,14 +56,13 @@ export default function Destacado({ ofertas }: Props) {
           initial={{ opacity: 0, scaleX: 0 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
+          transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
           className="w-full h-1 bg-background mx-auto mb-12 rounded-full"
         />
       </header>
 
       <div className="relative z-10 container mx-auto">
         <div className="relative flex items-center justify-center w-full mx-auto">
-
           {ofertaActual ? (
             <>
               {/* Botón anterior */}
@@ -86,16 +88,14 @@ export default function Destacado({ ofertas }: Props) {
                 </svg>
               </button>
 
-              {/* Tarjeta del producto */}
-              <div className="w-full max-w-5xl px-12 md:px-16">
+              <div className="w-full max-w-5xl px-12 md:px-16 min-w-0">
                 <motion.div
                   key={ofertaActual.id}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4 }}
-                  className="bg-foreground text-background rounded-lg shadow-2xl flex flex-col md:flex-row w-full min-h-[450px] overflow-hidden"
+                  className="bg-foreground text-background rounded-lg shadow-2xl flex flex-col md:flex-row w-full min-w-0 min-h-[450px] overflow-hidden"
                 >
-
                   {/* Imagen del producto */}
                   <div className="relative w-full md:w-1/2 h-64 md:h-auto min-h-[256px] flex-shrink-0">
                     {ofertaActual.Imagen ? (
@@ -116,13 +116,12 @@ export default function Destacado({ ofertas }: Props) {
                   </div>
 
                   {/* Información del producto */}
-                  <div className="w-full md:w-1/2 p-8 md:p-10 flex flex-col justify-between">
-
-                    <h3 className="m-0 mb-4 text-2xl md:text-3xl font-title">
+                  <div className="w-full md:w-1/2 min-w-0 p-8 md:p-10 flex flex-col justify-between">
+                    <h3 className="m-0 mb-4 text-2xl md:text-3xl font-title min-w-0 break-words [overflow-wrap:anywhere]">
                       {ofertaActual.Titulo}
                     </h3>
 
-                    <p className="m-0 text-sm opacity-80 leading-relaxed mb-6 flex-grow text-justify">
+                    <p className="m-0 min-w-0 text-sm opacity-80 leading-relaxed mb-6 flex-grow text-left whitespace-normal break-words [overflow-wrap:anywhere]">
                       {ofertaActual.Descripcion}
                     </p>
 
@@ -140,15 +139,31 @@ export default function Destacado({ ofertas }: Props) {
                       ))}
                     </div>
 
-                    {/* Precio */}
-                    <h3 className="text-xl font-bold font-title text-center">
-                      {ofertaActual.Costo}
-                    </h3>
+                    {/* Precios */}
+                    <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+                      {ofertaActual.PrecioOriginal !== undefined ? (
+                        <>
+                          {/* Precio original tachado */}
+                          <span className="text-red-500 line-through text-lg font-semibold">
+                            {ofertaActual.PrecioOriginal.toFixed(2)} $
+                          </span>
+
+                          {/* Precio promocional */}
+                          <span className="text-green-500 font-bold text-2xl">
+                            {ofertaActual.Precio.toFixed(2)} $
+                          </span>
+                        </>
+                      ) : (
+                        /* Precio normal cuando no hay promoción */
+                        <span className="font-bold text-2xl">
+                          {ofertaActual.Costo}
+                        </span>
+                      )}
+                    </div>
 
                     <button className="w-full bg-background text-foreground py-4 text-sm tracking-[0.2em] font-bold hover:bg-[#CDA592] transition-colors rounded-sm">
                       COMPRAR
                     </button>
-
                   </div>
                 </motion.div>
               </div>
@@ -183,7 +198,6 @@ export default function Destacado({ ofertas }: Props) {
               </p>
             </div>
           )}
-
         </div>
       </div>
     </section>
