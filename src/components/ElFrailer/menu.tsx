@@ -2,59 +2,27 @@
 
 import { motion } from 'motion/react';
 import Image from 'next/image';
-import { useState } from 'react';
 
 import type { Oferta } from '../../transformaciones/ofertas.js';
+import PriceWithBdv from '../price-with-bdv';
+import MenuPagination from '../catalog/menu-pagination';
+import { useMenuPagination } from '../catalog/use-menu-pagination';
 
-type OfertaMenu = Oferta & {
-  PrecioOriginal?: number;
-};
+type OfertaMenu = Oferta;
 
 type Props = {
-  ofertas: OfertaMenu[];
+  branchId: number;
+  initialPage: {
+    ofertas: OfertaMenu[];
+    categorias: { idcategoria: number; nombrecategoria: string }[];
+    total: number;
+    page: number;
+    error: string | null;
+  };
+  tasaBdv: number | null;
 };
-export default function Menu({ ofertas }: Props) {
-
-  const [busqueda, setBusqueda] = useState('');
-  const [orden, setOrden] = useState('');
-  const [etiquetaActiva, setEtiquetaActiva] = useState('Todos');
-
-  const todasLasEtiquetas = [
-    'Todos',
-    ...Array.from(
-      new Set(ofertas.flatMap((oferta) => oferta.Etiquetas))
-    ),
-  ];
-
-  const ofertasFiltradas = ofertas
-    .filter((oferta) => {
-
-      const coincideBusqueda =
-        oferta.Titulo.toLowerCase().includes(busqueda.toLowerCase()) ||
-        oferta.Descripcion.toLowerCase().includes(busqueda.toLowerCase());
-
-      const coincideEtiqueta =
-        etiquetaActiva === 'Todos' ||
-        oferta.Etiquetas.includes(etiquetaActiva);
-
-      return coincideBusqueda && coincideEtiqueta;
-    })
-    .sort((a, b) => {
-
-      if (orden === 'precio-asc') {
-        return a.Precio - b.Precio;
-      }
-
-      if (orden === 'precio-desc') {
-        return b.Precio - a.Precio;
-      }
-
-      if (orden === 'nombre') {
-        return a.Titulo.localeCompare(b.Titulo);
-      }
-
-      return 0;
-    });
+export default function Menu({ branchId, initialPage, tasaBdv }: Props) {
+  const catalog = useMenuPagination(branchId, initialPage);
 
   return (
     <section
@@ -91,16 +59,16 @@ export default function Menu({ ofertas }: Props) {
             <input
               type="text"
               placeholder="Buscar un producto..."
-              value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
+              value={catalog.search}
+              onChange={(e) => catalog.changeSearch(e.target.value)}
               className="w-full md:w-2/3 bg-foreground text-background border-2 border-[#CDA592] rounded-xl px-6 py-3 outline-none focus:ring-2 focus:ring-[#CDA592]/50 transition-all placeholder:text-background/50"
             />
 
             <div className="relative w-full md:w-1/3">
 
               <select
-                value={orden}
-                onChange={(e) => setOrden(e.target.value)}
+                value={catalog.order}
+                onChange={(e) => catalog.changeOrder(e.target.value)}
                 className="w-full bg-foreground text-background border-2 border-[#CDA592] rounded-xl px-6 py-3 appearance-none outline-none"
               >
                 <option value="">Ordenar por</option>
@@ -118,20 +86,28 @@ export default function Menu({ ofertas }: Props) {
 
           <div className="flex flex-wrap gap-3 mt-2">
 
-            {todasLasEtiquetas.map((etiqueta) => (
-
+            <button
+              onClick={() => catalog.changeCategory('')}
+              className={`px-6 py-1.5 rounded-full text-sm font-medium transition-colors border-4 border-[#CDA592] ${
+                catalog.categoryId === ''
+                  ? 'bg-[#CDA592] text-background border-[#CDA592]'
+                  : 'bg-transparent text-foreground hover:bg-[#CDA592]/20'
+              }`}
+            >
+              Todos
+            </button>
+            {catalog.categorias.map((categoria) => (
               <button
-                key={etiqueta}
-                onClick={() => setEtiquetaActiva(etiqueta)}
+                key={categoria.idcategoria}
+                onClick={() => catalog.changeCategory(String(categoria.idcategoria))}
                 className={`px-6 py-1.5 rounded-full text-sm font-medium transition-colors border-4 border-[#CDA592] ${
-                  etiquetaActiva === etiqueta
+                  catalog.categoryId === String(categoria.idcategoria)
                     ? 'bg-[#CDA592] text-background border-[#CDA592]'
                     : 'bg-transparent text-foreground hover:bg-[#CDA592]/20'
                 }`}
               >
-                {etiqueta}
+                {categoria.nombrecategoria}
               </button>
-
             ))}
 
           </div>
@@ -141,20 +117,27 @@ export default function Menu({ ofertas }: Props) {
       {/* Mostrar los productos */}
       <div className="relative z-10 container mx-auto">
 
-        {ofertasFiltradas.length === 0 ? (
-
+        {catalog.error && (
+          <p role="alert" className="mb-5 text-center text-red-700">
+            {catalog.error}
+          </p>
+        )}
+        {catalog.isPending && (
+          <p role="status" className="mb-5 text-center text-sm text-background/80">
+            Cargando productos...
+          </p>
+        )}
+        {catalog.ofertas.length === 0 ? (
           <p className="text-center text-lg px-6">
-            {ofertas.length === 0
+            {catalog.total === 0 &&
+            catalog.categoryId === '' &&
+            catalog.search.trim() === ''
               ? 'Esta sucursal todavía no tiene productos registrados.'
               : 'No se encontraron productos.'}
           </p>
-
         ) : (
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-24 w-full max-w-6xl mx-auto px-12 md:px-4">
-
-            {ofertasFiltradas.map((oferta) => (
-
+            {catalog.ofertas.map((oferta) => (
               <motion.div
                 key={oferta.id}
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -195,22 +178,23 @@ export default function Menu({ ofertas }: Props) {
                   </h3>
 
                   <div className="flex flex-wrap items-center justify-end gap-2 min-w-0">
-
-                  {oferta.PrecioOriginal !== undefined ? (
-                                                          <>
-                  <span className="text-red-500 line-through text-sm md:text-base font-semibold whitespace-nowrap">
-                     {oferta.PrecioOriginal.toFixed(2)} $
-                              </span>
-
-                            <span className="text-green-500 text-xl font-bold whitespace-nowrap">
-                                  {oferta.Precio.toFixed(2)} $
-                                    </span>
-                                      </>
-                                                      ) : (
-                                      <span className="text-xl font-bold font-Titulo whitespace-nowrap">
-                                      {oferta.Costo}
-                                        </span>)}
-                                                    </div>
+                    {oferta.PrecioOriginal !== undefined ? (
+                      <>
+                        <PriceWithBdv
+                          amount={oferta.PrecioOriginal}
+                          rate={tasaBdv}
+                          tone="original"
+                        />
+                        <PriceWithBdv
+                          amount={oferta.Precio}
+                          rate={tasaBdv}
+                          tone="discount"
+                        />
+                      </>
+                    ) : (
+                      <PriceWithBdv amount={oferta.Precio} rate={tasaBdv} />
+                    )}
+                  </div>
 
                 </div>
 
@@ -265,11 +249,14 @@ export default function Menu({ ofertas }: Props) {
               </motion.div>
 
             ))}
-
           </div>
-
         )}
-
+        <MenuPagination
+          currentPage={catalog.page}
+          totalPages={catalog.totalPages}
+          isPending={catalog.isPending}
+          onPageChange={catalog.goToPage}
+        />
       </div>
 
     </section>

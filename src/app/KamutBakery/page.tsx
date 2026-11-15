@@ -9,14 +9,38 @@ import {
   type Oferta,
 } from "../../transformaciones/ofertas";
 import { cookies } from "next/headers";
+import { getBdvUsdRate } from "@/lib/bdv-rate";
+import {
+  DEFAULT_MENU_FILTERS,
+  emptyMenuPage,
+  fetchMenuPage,
+  type MenuPageResult,
+} from "@/lib/menu-catalog";
 
 
 export default async function Home() {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
+  const tasaBdv = await getBdvUsdRate();
+  const resolverImagen = (imagen: string | null): string | null => {
+    if (!imagen) return null;
 
-  let ofertas: Oferta[] = [];
+    if (/^https?:\/\//i.test(imagen)) {
+      try {
+        return new URL(imagen).toString();
+      } catch {
+        return null;
+      }
+    }
+
+    return supabase.storage.from("producto").getPublicUrl(imagen).data.publicUrl;
+  };
+
   let ofertasDestacadas: Oferta[] = [];
+  let branchId = 0;
+  let initialMenu: MenuPageResult = emptyMenuPage(
+    "No se encontró la sucursal KamutBakery.",
+  );
 
   // Buscar la sucursal KamutBakery
   const { data: sucursal, error: errorSucursal } = await supabase
@@ -30,76 +54,12 @@ export default async function Home() {
   }
 
   if (sucursal) {
-    // ----------------------------------------------------
-    // OBTENER EL INVENTARIO PARA EL MENÚ
-    // ----------------------------------------------------
-    const { data: inventario, error: errorInventario } = await supabase
-      .from("inventario")
-      .select(`
-        idproducto,
-        idsucursal,
-        precio,
-        producto (
-          idproducto,
-          nombreproducto,
-          descripcion,
-          imagen,
-          categoriaproducto (
-            categoria (
-              idcategoria,
-              nombrecategoria
-            )
-          )
-        )
-      `)
-      .eq("idsucursal", sucursal.idsucursal);
-
-    if (errorInventario) {
-      console.error("Error al consultar el inventario:", errorInventario);
-    } else {
-      const listaInventario = inventario ?? [];
-
-      if (listaInventario.length > 0) {
-        // Consultar las promociones vigentes de todos los productos
-        const idsProductos = listaInventario.map((registro: any) => registro.idproducto);
-        const ahora = new Date().toISOString();
-
-        const { data: promociones, error: errorPromociones } = await supabase
-          .from("promocion")
-          .select("idproducto, idsucursal, preciofinal")
-          .eq("idsucursal", sucursal.idsucursal)
-          .in("idproducto", idsProductos)
-          .eq("estaactiva", true)
-          .lte("fechainicio", ahora)
-          .or(`fechafin.is.null,fechafin.gt.${ahora}`);
-
-        if (errorPromociones) {
-          console.error("Error al consultar las promociones del menú:", errorPromociones);
-        }
-
-        // Asociar cada producto con su promoción
-        const inventarioConPromocion = listaInventario.map((registro: any) => {
-          const promocion = (promociones ?? []).find(
-            (promo: any) =>
-              promo.idproducto === registro.idproducto &&
-              promo.idsucursal === registro.idsucursal
-          );
-
-          if (!promocion) return registro;
-
-          return {
-            ...registro,
-            precioOriginal: Number(registro.precio),
-            precio: Number(promocion.preciofinal),
-          };
-        });
-
-        // La transformación detecta automáticamente el precioOriginal
-        ofertas = transformarOfertas(inventarioConPromocion);
-      } else {
-        ofertas = transformarOfertas(listaInventario);
-      }
-    }
+    branchId = Number(sucursal.idsucursal);
+    initialMenu = await fetchMenuPage(
+      supabase,
+      branchId,
+      DEFAULT_MENU_FILTERS,
+    );
     
     // OBTENER LOS PRODUCTOS DESTACADOS
     const { data: destacados, error: errorDestacados } = await supabase
@@ -167,9 +127,9 @@ export default async function Home() {
         });
 
         // Transformación directa
-        ofertasDestacadas = transformarOfertas(destacadosConPromocion);
+        ofertasDestacadas = transformarOfertas(destacadosConPromocion, resolverImagen);
       } else {
-        ofertasDestacadas = transformarOfertas(listaDestacados);
+        ofertasDestacadas = transformarOfertas(listaDestacados, resolverImagen);
       }
     }
   } else {
@@ -179,8 +139,8 @@ export default async function Home() {
   return (
     <main>
       <Inicio />
-      <Destacado ofertas={ofertasDestacadas} />
-      <Menu ofertas={ofertas} />
+      <Destacado ofertas={ofertasDestacadas} tasaBdv={tasaBdv} />
+      <Menu branchId={branchId} initialPage={initialMenu} tasaBdv={tasaBdv} />
     </main>
   );
 }

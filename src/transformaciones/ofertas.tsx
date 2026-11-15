@@ -10,7 +10,10 @@ export type Oferta = {
   PrecioOriginal?: number;
 };
 
-export function transformarOfertas(datos: any[]): Oferta[] {
+export function transformarOfertas(
+  datos: any[],
+  resolverImagen: (imagen: string | null) => string | null = (imagen) => imagen
+): Oferta[] {
   return datos.map((registro) => {
     const producto = Array.isArray(registro.producto)
       ? registro.producto[0]
@@ -31,7 +34,7 @@ export function transformarOfertas(datos: any[]): Oferta[] {
       Titulo: producto?.nombreproducto ?? "",
       Descripcion: producto?.descripcion ?? "",
       Etiquetas: etiquetas,
-      Imagen: producto?.imagen ?? null,
+      Imagen: resolverImagen(producto?.imagen ?? null),
       Precio: Number(registro.precio),
       Costo: `${Number(registro.precio).toFixed(2)} $`,
       // Extraemos el precioOriginal si existe en el registro

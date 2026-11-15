@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useState } from 'react';
 import type { Oferta } from '../../transformaciones/ofertas';
+import PriceWithBdv from '../price-with-bdv';
 
 type OfertaDestacada = Oferta & {
   PrecioOriginal?: number;
@@ -11,9 +12,10 @@ type OfertaDestacada = Oferta & {
 
 type Props = {
   ofertas: OfertaDestacada[];
+  tasaBdv: number | null;
 };
 
-export default function Ofertas({ ofertas }: Props) {
+export default function Ofertas({ ofertas, tasaBdv }: Props) {
   const [currentOfertaIndex, setCurrentOfertaIndex] = useState(0);
 
   // Evita errores cuando no existen productos destacados
@@ -142,18 +144,11 @@ export default function Ofertas({ ofertas }: Props) {
                     <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
                       {ofertaActual.PrecioOriginal !== undefined ? (
                         <>
-                          <span className="text-red-500 line-through text-lg font-semibold">
-                            {ofertaActual.PrecioOriginal.toFixed(2)} $
-                          </span>
-
-                          <span className="text-green-500 font-bold text-2xl">
-                            {ofertaActual.Precio.toFixed(2)} $
-                          </span>
+                          <PriceWithBdv amount={ofertaActual.PrecioOriginal} rate={tasaBdv} tone="original" />
+                          <PriceWithBdv amount={ofertaActual.Precio} rate={tasaBdv} tone="discount" />
                         </>
                       ) : (
-                        <span className="font-bold text-2xl">
-                          {ofertaActual.Costo}
-                        </span>
+                        <PriceWithBdv amount={ofertaActual.Precio} rate={tasaBdv} />
                       )}
                     </div>
 

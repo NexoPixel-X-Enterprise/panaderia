@@ -5,6 +5,7 @@ import Ofertas from "../components/home/ofertas";
 import Sucursales from "../components/home/sucursales";
 import { createClient } from '@/supabase/server'
 import { cookies } from 'next/headers'
+import { getBdvUsdRate } from '@/lib/bdv-rate'
 
 type OfertaPromocion = {
   id: number;
@@ -20,6 +21,7 @@ type OfertaPromocion = {
 export default async function Home() {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
+  const tasaBdv = await getBdvUsdRate();
 
   let ofertas: OfertaPromocion[] = [];
 
@@ -190,7 +192,7 @@ export default async function Home() {
     <main>
       <Inicio />
       <Nosotros />
-      <Ofertas ofertas={ofertas} />
+      <Ofertas ofertas={ofertas} tasaBdv={tasaBdv} />
       <Sucursales />
     </main>
 

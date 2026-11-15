@@ -9,6 +9,7 @@ import {
   type Oferta,
 } from "../../transformaciones/ofertas";
 import { getImageUrl } from '../../utils/supabaseImages';
+import PriceWithBdv from '../price-with-bdv';
 
 type OfertaPromocion = {
   id: number;
@@ -23,8 +24,9 @@ type OfertaPromocion = {
 
 type Props = {
   ofertas: OfertaPromocion[];
+  tasaBdv: number | null;
 };
-export default function Ofertas({ ofertas }: Props) {
+export default function Ofertas({ ofertas, tasaBdv }: Props) {
   const [currentOfertaIndex, setCurrentOfertaIndex] = useState(0);
 
   const goToPreviousOferta = () => {
@@ -102,7 +104,7 @@ export default function Ofertas({ ofertas }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto px-12 md:px-4">
             {visibleOferta.map((Oferta, index) => (
               <motion.div
-                key={`${Oferta.id}-${currentOfertaIndex}`}
+                key={`${oferta.Sucursal}-${oferta.id}-${activeIndex}-${index}`}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
@@ -133,14 +135,10 @@ export default function Ofertas({ ofertas }: Props) {
                   
                   <div className="flex flex-col items-end flex-shrink-0">
                     {/* Solo muestra el precio original tachado si es mayor que el precio de oferta */}
-                    {Oferta.PrecioOriginal && Oferta.PrecioOriginal > Oferta.Precio && (
-                      <span className="text-sm font-Titulo text-red-500 line-through mb-[-4px]">
-                        {Oferta.PrecioOriginal.toFixed(2)} $
-                      </span>
+                    {oferta.PrecioOriginal && oferta.PrecioOriginal > oferta.Precio && (
+                      <PriceWithBdv amount={oferta.PrecioOriginal} rate={tasaBdv} tone="original" />
                     )}
-                    <span className="text-xl font-bold font-Titulo text-green-500">
-                      {Oferta.Precio.toFixed(2)} $
-                    </span>
+                    <PriceWithBdv amount={oferta.Precio} rate={tasaBdv} tone="discount" />
                   </div>
                 </div>
                 
