@@ -33,6 +33,11 @@ const linkSucursal = [
 export default function Footer() {
   const pathname = usePathname();
 
+  // Si la ruta actual empieza con /dashboard, no se renderiza
+  if (pathname?.startsWith('/dashboard')) {
+    return null;
+  }
+
   const LinksPorPagina = {
     '/OperaDely': [
       { nombre: 'Inicio', ruta: '#inicio' },

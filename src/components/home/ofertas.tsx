@@ -4,10 +4,6 @@ import { motion } from 'motion/react';
 import Image from 'next/image';
 import { useState } from 'react';
 import Link from 'next/link';
-import {
-  transformarOfertas,
-  type Oferta,
-} from "../../transformaciones/ofertas";
 import { getImageUrl } from '../../utils/supabaseImages';
 import PriceWithBdv from '../price-with-bdv';
 
@@ -31,20 +27,23 @@ export default function Ofertas({ ofertas, tasaBdv }: Props) {
 
   const goToPreviousOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
-      prevIndex === 0 ? ofertas.length - 1 : prevIndex - 1
+      (prevIndex - 1 + ofertas.length) % ofertas.length
     );
   };
 
   const goToNextOferta = () => {
     setCurrentOfertaIndex((prevIndex) =>
-      prevIndex === ofertas.length - 1 ? 0 : prevIndex + 1
+      (prevIndex + 1) % ofertas.length
     );
   };
 
-  const visibleOferta = [
-    ofertas[currentOfertaIndex],
-    ofertas[(currentOfertaIndex + 1) % ofertas.length]
-  ];
+  if (ofertas.length === 0) return null;
+
+  const activeIndex = currentOfertaIndex % ofertas.length;
+  const visibleOferta = [ofertas[activeIndex]];
+  if (ofertas.length > 1) {
+    visibleOferta.push(ofertas[(activeIndex + 1) % ofertas.length]);
+  }
 
   // Diccionario para areglar las rutas de la BD con los nombres de las carpetas de las sucursales
   const rutasSucursales: Record<string, string> = {
@@ -91,18 +90,20 @@ export default function Ofertas({ ofertas, tasaBdv }: Props) {
 
         <div className="relative flex items-center justify-between w-full">
           
-          <button
-            onClick={goToPreviousOferta}
-            className="absolute left-0 md:-left-12 z-20 p-2 text-foreground hover:text-[#CDA592] transition-colors focus:outline-none"
-            aria-label="Oferta anterior"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 md:h-12 md:w-12 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
+          {ofertas.length > 1 && (
+            <button
+              onClick={goToPreviousOferta}
+              className="absolute left-0 md:-left-12 z-20 p-2 text-foreground hover:text-[#CDA592] transition-colors focus:outline-none"
+              aria-label="Oferta anterior"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 md:h-12 md:w-12 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto px-12 md:px-4">
-            {visibleOferta.map((Oferta, index) => (
+            {visibleOferta.map((oferta, index) => (
               <motion.div
                 key={`${oferta.Sucursal}-${oferta.id}-${activeIndex}-${index}`}
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -113,10 +114,10 @@ export default function Ofertas({ ofertas, tasaBdv }: Props) {
                 
                 <div className="relative w-full h-48 md:h-56 rounded-sm overflow-hidden mb-4 border border-gray-200">
                   
-                  {Oferta.Imagen ? (
+                  {oferta.Imagen ? (
                     <Image
-                      src={Oferta.Imagen}
-                      alt={Oferta.Titulo}
+                      src={oferta.Imagen}
+                      alt={oferta.Titulo}
                       fill={true}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover"
@@ -131,7 +132,7 @@ export default function Ofertas({ ofertas, tasaBdv }: Props) {
                 </div>
 
                 <div className="flex justify-between items-start mb-2 gap-4">
-                  <h3 className="m-0 leading-tight flex-grow">{Oferta.Titulo}</h3>
+                  <h3 className="m-0 leading-tight flex-grow">{oferta.Titulo}</h3>
                   
                   <div className="flex flex-col items-end flex-shrink-0">
                     {/* Solo muestra el precio original tachado si es mayor que el precio de oferta */}
@@ -151,10 +152,10 @@ export default function Ofertas({ ofertas, tasaBdv }: Props) {
                   </span>
 
                   <Link 
-                    href={rutasSucursales[Oferta.Sucursal] || '/'} 
+                    href={rutasSucursales[oferta.Sucursal] || '/'} 
                     className="text-sm font-medium hover:text-[#CDA592] hover:underline transition-colors cursor-pointer"
                   >
-                    {Oferta.Sucursal}
+                    {oferta.Sucursal}
                   </Link>
                 </div>
 
@@ -163,14 +164,14 @@ export default function Ofertas({ ofertas, tasaBdv }: Props) {
                   <div className="w-1/2 flex flex-col">
                     <span className="text-sm font-Titulo font-bold mb-2">Descripción</span>
                     <p className="m-0 text-xs opacity-80 leading-relaxed min-w-0 whitespace-normal break-words [overflow-wrap:anywhere]cvm,.zx">
-                      {Oferta.Descripcion}
+                      {oferta.Descripcion}
                     </p>
                   </div>
                   
                   <div className="w-1/2 flex flex-col">
                     <span className="text-sm font-Titulo font-bold mb-2">Etiquetas</span>
                     <div className="flex flex-wrap gap-2">
-                      {Oferta.Etiquetas.map((tag, i) => (
+                      {oferta.Etiquetas.map((tag, i) => (
                         <span key={i} className="bg-[#CDA592] text-background text-[10px] px-3 py-1 rounded-full font-bold min-w-0">
                           {tag}
                         </span>
@@ -187,15 +188,17 @@ export default function Ofertas({ ofertas, tasaBdv }: Props) {
             ))}
           </div>
 
-          <button
-            onClick={goToNextOferta}
-            className="absolute right-0 md:-right-12 z-20 p-2 text-foreground hover:text-[#CDA592] transition-colors focus:outline-none"
-            aria-label="Siguiente oferta"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 md:h-12 md:w-12 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          {ofertas.length > 1 && (
+            <button
+              onClick={goToNextOferta}
+              className="absolute right-0 md:-right-12 z-20 p-2 text-foreground hover:text-[#CDA592] transition-colors focus:outline-none"
+              aria-label="Siguiente oferta"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 md:h-12 md:w-12 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
           
         </div>
       </div>

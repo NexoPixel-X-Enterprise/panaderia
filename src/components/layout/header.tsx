@@ -1,6 +1,6 @@
 'use client'
 
-import { XMarkIcon, Bars3Icon } from "@heroicons/react/16/solid";
+import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { usePathname } from 'next/navigation';
 import SectionLink from './section-link';
@@ -8,6 +8,11 @@ import SectionLink from './section-link';
 export default function Header(){
 
   const pathname = usePathname();
+
+  // Si la ruta actual empieza con /dashboard, no se renderiza
+  if (pathname?.startsWith('/dashboard')) {
+    return null;
+  }
 
   const [isOpen, setIsOpen] = useState(false);
 
